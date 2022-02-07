@@ -5,7 +5,7 @@ config :app, App.Repo,
   username: System.get_env("POSTGRES_USER", "postgres"),
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   database: System.get_env("POSTGRES_DB", "boilerplate_db"),
-  hostname: System.get_env("POSTGRES_HOST", "db"),
+  hostname: System.get_env("POSTGRES_HOST", "localhost"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -13,8 +13,7 @@ config :app, App.Repo,
 # debugging and code reloading.
 #
 # The watchers configuration can be used to run external
-# watchers to your application. For example, we use it
-# with esbuild to bundle .js and .css sources.
+# watchers to your application
 config :app, AppWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
@@ -24,8 +23,6 @@ config :app, AppWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "Ddtlj9Pq/Vm+NEzNNug33QPPYog02ZjOo45n53yFDc+wPbmIvGENCvLJrl3n/3T6",
   watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support

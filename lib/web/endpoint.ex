@@ -1,4 +1,4 @@
-defmodule AppWeb.Endpoint do
+defmodule Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :app
 
   # The session will be stored in the cookie and signed,
@@ -9,8 +9,6 @@ defmodule AppWeb.Endpoint do
     key: "_app_key",
     signing_salt: "m+7lzzMi"
   ]
-
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -46,5 +44,5 @@ defmodule AppWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug AppWeb.Router
+  plug Web.Router
 end

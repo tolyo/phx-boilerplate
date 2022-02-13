@@ -14,7 +14,7 @@ config :app, App.Repo,
 #
 # The watchers configuration can be used to run external
 # watchers to your application
-config :app, AppWeb.Endpoint,
+config :app, Web.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [port: 4000],
@@ -50,13 +50,13 @@ config :app, AppWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :app, AppWeb.Endpoint,
+config :app, Web.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"lib/app_web/(live|views)/.*(ex)$",
-      ~r"lib/app_web/templates/.*(eex)$"
+      ~r{lib/*.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{lib/web/*.*(ex)$},
+      ~r{priv/gettext/.*(po)$},
+      ~r{lib/web/*.*(eex)$}
     ]
   ]
 

@@ -11,9 +11,9 @@ config :app,
   ecto_repos: [App.Repo]
 
 # Configures the endpoint
-config :app, AppWeb.Endpoint,
+config :app, Web.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: AppWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [view: Web.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: App.PubSub,
   live_view: [signing_salt: "BgDuLEKB"]
 

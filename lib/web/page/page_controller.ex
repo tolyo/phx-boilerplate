@@ -2,6 +2,10 @@ defmodule Web.PageController do
   use Web, :controller
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    conn
+    |> content(
+      p("Hello world")
+      |> MainLayout.wrap()
+    )
   end
 end

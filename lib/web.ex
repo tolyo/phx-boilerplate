@@ -23,6 +23,7 @@ defmodule Web do
 
       import Plug.Conn
       import Web.Gettext
+      import Nitroux
       alias Web.Router.Helpers, as: Routes
     end
   end

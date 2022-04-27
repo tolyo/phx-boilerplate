@@ -1,0 +1,7 @@
+[
+  "https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js",
+  "https://cdn.jsdelivr.net/npm/angular-ui-router@1.0.29/release/angular-ui-router.min.js",
+  "https://cdn.jsdelivr.net/npm/angular-animate@1.8.2/angular-animate.min.js",
+  "https://cdn.jsdelivr.net/npm/phoenix@1.5.9/priv/static/phoenix.js",
+  "https://unpkg.com/event-target-shim@6.0.2"
+]

@@ -33,4 +33,10 @@ defmodule App.Application do
     Web.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  # Check if running in prod environment as Mix.env is not available in prod
+  @spec prod :: boolean
+  def prod() do
+    Application.get_env(:server, :environment) == :prod
+  end
 end

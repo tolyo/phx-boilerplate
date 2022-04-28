@@ -5,7 +5,7 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :app, App.Repo,
+config :app, Repo,
   username: System.get_env("POSTGRES_USER", "postgres"),
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   database: "#{System.get_env("POSTGRES_DB", "boilerplate_db")}#{System.get_env("MIX_TEST_PARTITION")}",
@@ -21,7 +21,7 @@ config :app, Web.Endpoint,
   server: false
 
 # In test we don't send emails.
-config :app, App.Mailer, adapter: Swoosh.Adapters.Test
+config :app, Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warn

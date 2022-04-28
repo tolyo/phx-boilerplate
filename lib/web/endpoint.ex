@@ -16,8 +16,8 @@ defmodule Web.Endpoint do
   # when deploying your static files in production.
   plug(Plug.Static,
     at: "/",
-    from: if(App.Application.prod(), do: :server, else: "."),
-    gzip: if(App.Application.prod(), do: true, else: false)
+    from: if(MainApplication.prod(), do: :server, else: "."),
+    gzip: if(MainApplication.prod(), do: true, else: false)
   )
 
   # Code reloading can be explicitly enabled under the

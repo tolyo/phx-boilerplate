@@ -1,4 +1,4 @@
-defmodule App.Application do
+defmodule MainApplication do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,20 +9,20 @@ defmodule App.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      App.Repo,
+      Repo,
       # Start the Telemetry supervisor
       Web.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: App.PubSub},
+      {Phoenix.PubSub, name: PubSub},
       # Start the Endpoint (http/https)
       Web.Endpoint
-      # Start a worker by calling: App.Worker.start_link(arg)
-      # {App.Worker, arg}
+      # Start a worker by calling: Worker.start_link(arg)
+      # {Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: App.Supervisor]
+    opts = [strategy: :one_for_one, name: Supervisor]
     Supervisor.start_link(children, opts)
   end
 

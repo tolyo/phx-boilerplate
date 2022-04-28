@@ -8,13 +8,13 @@
 import Config
 
 config :app,
-  ecto_repos: [App.Repo]
+  ecto_repos: [Repo]
 
 # Configures the endpoint
 config :app, Web.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: Web.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: App.PubSub,
+  pubsub_server: PubSub,
   live_view: [signing_salt: "BgDuLEKB"]
 
 # Configures the mailer
@@ -24,7 +24,7 @@ config :app, Web.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :app, App.Mailer, adapter: Swoosh.Adapters.Local
+config :app, Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

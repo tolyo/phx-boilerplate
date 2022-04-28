@@ -1,7 +1,7 @@
 import Config
 
 # Configure your database
-config :app, App.Repo,
+config :app, Repo,
   username: System.get_env("POSTGRES_USER", "postgres"),
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
   database: System.get_env("POSTGRES_DB", "boilerplate_db"),

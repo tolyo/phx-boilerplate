@@ -23,6 +23,12 @@ config :app, Web.Endpoint,
   debug_errors: true,
   secret_key_base: "Ddtlj9Pq/Vm+NEzNNug33QPPYog02ZjOo45n53yFDc+wPbmIvGENCvLJrl3n/3T6",
   watchers: [
+    node: [
+      "node_modules/webpack/bin/webpack.js",
+      "--mode=development",
+      "--watch",
+      cd: Path.expand("../", __DIR__)
+    ]
   ]
 
 # ## SSL Support

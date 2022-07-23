@@ -1,5 +1,6 @@
 defmodule LayoutHelper do
   import Nitroux
+  import Web.Router.Helpers
 
   @moduledoc """
     Helper for loading list of CDN libs
@@ -7,11 +8,9 @@ defmodule LayoutHelper do
   @libs "./lib/web/shared/shared.json" |> File.read!() |> Jason.decode!()
 
   @spec get_libs :: [String.t()]
-  def get_libs() do
-    @libs
-  end
+  def get_libs(), do: @libs
 
-  def header() do
+  def header do
     [
       meta(%{
         charset: "utf-8"
@@ -60,17 +59,14 @@ defmodule LayoutHelper do
           let EventTarget = EventTargetShim.EventTarget;
       """),
 
-      ### https://docs.angularjs.org/api/ng/directive/ngCloak
-      script("""
-          .ng-cloak {
-            display: none !important;
-          }
-      """),
-
       ### main CSS bundle
       link(%{
         rel: "stylesheet",
-        href: Web.Router.Helpers.static_path(Web.Endpoint, "/lib/web/app.css")
+        href: static_path(Web.Endpoint, "/dist/app.css")
+      }),
+
+      script(%{
+        src: static_path(Web.Endpoint, "/dist/app.js")
       })
     ]
   end

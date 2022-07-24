@@ -304,5 +304,6 @@ summary {
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./lib/web/app.css ***!
   \*************************************************************************************************************/
 section {
-    text-align: center;
+  text-align: center;
 }
+

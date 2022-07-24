@@ -23,7 +23,7 @@ services:
 
   app:
     container_name: boilerplate_app
-    build: 
+    build:
       context: .
     depends_on:
       - db
@@ -33,7 +33,6 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - .:/app  
-    stdin_open: true  
+      - .:/app
+    stdin_open: true
     command: ["bash", "/tmp/server_init.sh"]
-  

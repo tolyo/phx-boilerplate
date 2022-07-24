@@ -17,8 +17,8 @@ defmodule Web.Router do
   scope "/", Web do
     pipe_through :browser
 
-    get "/", PageController, :index
-    get "/test", PageController, :test
+    get "/", HomeController, :index
+    get "/home", HomeController, :home
   end
 
   # Other scopes may use custom stacks.

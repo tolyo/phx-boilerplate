@@ -9,6 +9,7 @@
     "prettier"
   ],
   "globals": {
+    "require": "readonly"
   },
   "parserOptions": {
     "ecmaVersion": "latest",

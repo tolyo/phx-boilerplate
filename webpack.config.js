@@ -3,8 +3,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 const isProduction = process.env.NODE_ENV == "production";
 
-const stylesHandler = "style-loader";
-
 const config = {
   entry: {
     app: "./lib/web/app.js",

@@ -1,5 +1,2 @@
 @import "modern-normalize";
-
-section {
-  text-align: center;
-}
+@import "./home/home.css";

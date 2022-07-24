@@ -64,7 +64,6 @@ defmodule LayoutHelper do
         rel: "stylesheet",
         href: static_path(Web.Endpoint, "/dist/app.css")
       }),
-
       script(%{
         src: static_path(Web.Endpoint, "/dist/app.js")
       })

@@ -25,6 +25,7 @@ defmodule Web do
       import Web.Gettext
       import Nitroux
       import Nitroux.Utils
+      import Web.Shared
       alias Web.Router.Helpers, as: Routes
     end
   end

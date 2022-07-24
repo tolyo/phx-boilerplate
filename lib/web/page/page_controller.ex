@@ -3,11 +3,7 @@ defmodule Web.PageController do
 
   def index(conn, _params) do
     conn
-    |> content(
-      "server-page"
-      |> tag(%{url: "test"})
-      |> MainLayout.wrap()
-    )
+    |> content(MainLayout.wrap(server_page("test")))
   end
 
   def test(conn, _params) do

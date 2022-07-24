@@ -33,3 +33,6 @@ npm-debug.log
 /node_modules/
 /dist/
 mix.lock
+/test-results/
+/playwright-report/
+/playwright/.cache/

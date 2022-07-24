@@ -5,6 +5,7 @@
     "deploy": "webpack --mode=production",
     "build-webpack": "webpack --mode=development",
     "test": "./node_modules/.bin/karma start",
+    "functional-test": "./node_modules/.bin/playwright test",
     "typecheck": "./node_modules/.bin/tsc",
     "check": "./node_modules/.bin/eslint lib --fix",
     "compile": "webpack --mode=development",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "latest",
     "@fullhuman/postcss-purgecss": "latest",
+    "@playwright/test": "^1.24.0",
     "@types/eslint": "latest",
     "@types/jasmine": "latest",
     "@types/phoenix": "latest",

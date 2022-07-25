@@ -19,6 +19,9 @@ defmodule Web.Router do
 
     get "/", HomeController, :index
     get "/home", HomeController, :home
+    get "/login", HomeController, :login
+    get "/register", HomeController, :register
+    get("/*path", HomeController, :index)
   end
 
   # Other scopes may use custom stacks.

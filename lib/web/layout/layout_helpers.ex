@@ -36,23 +36,6 @@ defmodule LayoutHelper do
         href: Web.Router.Helpers.static_path(Web.Endpoint, "/lib/web/favicon.ico"),
         type: "image/x-icon"
       }),
-
-      # https://cheatsheetseries.owasp.org/cheatsheets/Clickjacking_Defense_Cheat_Sheet.html#best-for-now-legacy-browser-frame-breaking-script -->
-      style(%{
-        id: "clj",
-        html: "body{display:none !important;"
-      }),
-      script(%{
-        type: "text/javascript",
-        html: """
-        if (self === top) {
-            var antiClickjack = document.getElementById("clj");
-            antiClickjack.parentNode.removeChild(antiClickjack);
-        } else {
-            top.location = self.location;
-        }
-        """
-      }),
       get_libs() |> Enum.map(&script(%{src: &1})),
       script("""
           window.app = {};
@@ -63,7 +46,12 @@ defmodule LayoutHelper do
       link(%{
         rel: "stylesheet",
         href: static_path(Web.Endpoint, "/dist/app.css")
-      }),
+      })
+    ]
+  end
+
+  def footer do
+    [
       script(%{
         src: static_path(Web.Endpoint, "/dist/app.js")
       })

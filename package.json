@@ -17,6 +17,7 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
+    "@vaadin/router": "^1.7.4",
     "lit": "^2.2.8",
     "lit-html": "^2.2.7",
     "modern-normalize": "^1.1.0",

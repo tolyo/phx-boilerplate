@@ -18,9 +18,9 @@ defmodule Web.Router do
     pipe_through :browser
 
     get "/", HomeController, :index
-    get "/home", HomeController, :home
-    get "/login", HomeController, :login
-    get "/register", HomeController, :register
+    get "/_home", HomeController, :home
+    get "/_login", LoginController, :index
+    get "/_register", HomeController, :register
     get("/*path", HomeController, :index)
   end
 

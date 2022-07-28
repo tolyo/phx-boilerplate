@@ -5,7 +5,7 @@ const isProduction = process.env.NODE_ENV == "production";
 
 const config = {
   entry: {
-    app: "./lib/web/app.js",
+    app: "./lib/web/app.ts",
     css: "./lib/web/app.css",
   },
   output: {
@@ -22,6 +22,11 @@ const config = {
         loader: "babel-loader",
       },
       {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
@@ -33,6 +38,9 @@ const config = {
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
     ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   },
 };
 

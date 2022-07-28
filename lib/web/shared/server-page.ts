@@ -1,34 +1,33 @@
-import { LitElement, html } from "lit";
-import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import {LitElement, html} from 'lit';
+import {DirectiveResult} from 'lit-html/directive';
+import {unsafeHTML, UnsafeHTMLDirective} from 'lit/directives/unsafe-html.js';
 
 /**
  * Component for rendering server pages set via url attribute.
  */
 export class ServerPage extends LitElement {
   static properties = {
-    content: { state: true },
+    content: {state: true},
     url: {},
   };
 
-  constructor(url) {
+  url: string;
+  content?: DirectiveResult<typeof UnsafeHTMLDirective>;
+
+  constructor(url: string) {
     super();
-    if (url) {
-      this.url = url;
-    }
+    this.url = url;
   }
 
   connectedCallback() {
     super.connectedCallback();
-    if (!this.url) {
-      this.url = this.location.getUrl();
-    }
     return this.getContent(this.url);
   }
 
-  getContent(url) {
+  getContent(url: string) {
     return fetch(url)
-      .then((res) => res.text())
-      .then((body) => (this.content = unsafeHTML(body)))
+      .then(res => res.text())
+      .then(body => (this.content = unsafeHTML(body)))
       .then(() => {
         console.log(this.content);
         this.render();
@@ -43,3 +42,5 @@ export class ServerPage extends LitElement {
     return html`${this.content}`;
   }
 }
+
+customElements.define('sever-page', ServerPage);

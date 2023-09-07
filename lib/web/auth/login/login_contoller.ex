@@ -4,7 +4,11 @@ defmodule Web.LoginController do
   def index(conn, _params) do
     conn
     |> content([
-      "Login"
+      h2("Login"),
+      button(
+        onclick: "window.alert('You clicked me')",
+        html: "Click me"
+      )
     ])
   end
 end

@@ -3,7 +3,7 @@ defmodule Web.HomeController do
 
   def index(conn, _params) do
     conn
-    |> content(MainLayout.wrap([header(), span(%{id: "outlet"})]))
+    |> content(MainLayout.wrap([header(), span(id: "outlet")]))
   end
 
   def home(conn, _params) do

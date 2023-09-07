@@ -10,6 +10,7 @@ section:first-of-type {
   margin: auto;
   margin-left: 1rem;
   font-size: 2rem;
+  text-decoration: none;
 }
 
 section:first-of-type nav {

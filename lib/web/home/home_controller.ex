@@ -10,27 +10,22 @@ defmodule Web.HomeController do
     conn
     |> content([
       div([
-        h1("PHX Boilerplate"),
-        div("a starter template for scalable development"),
-        h6("Made in Latvia")
+        h1("Phoenix Framework Boilerplate"),
+        div("A starter template for scalable development")
       ])
     ])
   end
 
   def header do
     section([
-      a(id: "logo", href: "/", html: "Logo"),
-      nav([
-        a(href: "/login", html: "Login")
-      ])
+      a(id: "logo", href: "/", html: "PHX Boilerplate"),
+      nav(a(href: "/login", html: "Login"))
     ])
   end
 
   def login(conn, _params) do
     conn
-    |> content([
-      "Login"
-    ])
+    |> content("Login")
   end
 
   def register(conn, _params) do

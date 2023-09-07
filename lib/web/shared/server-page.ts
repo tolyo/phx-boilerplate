@@ -43,4 +43,4 @@ export class ServerPage extends LitElement {
   }
 }
 
-customElements.define('sever-page', ServerPage);
+customElements.define('server-page', ServerPage);

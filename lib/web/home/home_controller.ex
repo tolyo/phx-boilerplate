@@ -21,8 +21,7 @@ defmodule Web.HomeController do
     section([
       a(id: "logo", href: "/", html: "Logo"),
       nav([
-        a(href: "/login", html: "Login"),
-        a(href: "/register", html: "Register")
+        a(href: "/login", html: "Login")
       ])
     ])
   end

@@ -36,7 +36,7 @@ defmodule LayoutHelper do
         href: Web.Router.Helpers.static_path(Web.Endpoint, "/lib/web/favicon.ico"),
         type: "image/x-icon"
       }),
-      get_libs() |> Enum.map(&script(%{src: &1})),
+      get_libs() |> Enum.map(&script(src: &1)),
       script("""
           window.app = {};
           let EventTarget = EventTargetShim.EventTarget;

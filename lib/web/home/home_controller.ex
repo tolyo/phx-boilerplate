@@ -19,7 +19,10 @@ defmodule Web.HomeController do
   def header do
     section([
       a(id: "logo", href: "/", html: "PHX Boilerplate"),
-      nav(a(href: "/login", html: "Login"))
+      nav([
+        a(href: "/login", html: "Login"),
+        a(href: "/stimulus", html: "Stimulus"),
+      ])
     ])
   end
 

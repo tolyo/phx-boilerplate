@@ -15,7 +15,8 @@
     "incremental": true,
     "allowJs" : true,
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "lib/web/@types"
     ],
     "lib": [
       "es2018",

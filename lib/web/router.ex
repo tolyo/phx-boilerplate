@@ -18,6 +18,7 @@ defmodule Web.Router do
     pipe_through :browser
 
     get "/", HomeController, :index
+    get "/stimulus", StimulusController, :index
     get "/_home", HomeController, :home
     get "/_login", LoginController, :index
     get "/_register", HomeController, :register

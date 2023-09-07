@@ -22,7 +22,7 @@ const config = {
         loader: 'babel-loader',
       },
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },

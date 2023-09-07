@@ -21,11 +21,12 @@
     "pretest": "npm run compile"
   },
   "dependencies": {
-    "@vaadin/router": "^1.7.4",
-    "lit": "^2.2.8",
-    "lit-html": "^2.2.7",
-    "modern-normalize": "^1.1.0",
-    "phoenix": "^1.5.9",
+    "@hotwired/stimulus": "^3.2.2",
+    "@vaadin/router": "^1.7.5",
+    "lit": "^2.8.0",
+    "lit-html": "^2.8.0",
+    "modern-normalize": "^2.0.0",
+    "phoenix": "^1.7.7",
     "phoenix_html": "file:./deps/phoenix_html"
   },
   "devDependencies": {
@@ -49,10 +50,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "gts": "^3.1.0",
     "hard-source-webpack-plugin": "0.13.1",
-    "html-loader": "^4.1.0",
-    "imagemin": "^8.0.1",
-    "imagemin-jpegtran": "^7.0.0",
-    "imagemin-pngquant": "^9.0.2",
     "mini-css-extract-plugin": "^2.6.1",
     "postcss": "^8.2.5",
     "postcss-import": "^14.0.0",
@@ -63,9 +60,9 @@
     "terser-webpack-plugin": "^5.3.1",
     "testcafe": "1.14.2",
     "ts-loader": "^9.3.1",
-    "typescript": "^4.0.0",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "version": "1.0.0",
   "description": "My webpack project",

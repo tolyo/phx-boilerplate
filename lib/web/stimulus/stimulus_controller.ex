@@ -6,19 +6,16 @@ defmodule Web.StimulusController do
     |> content(
       MainLayout.wrap(
         div(
-          'data-controller': "example",
+          "data-controller": "example",
           html: [
             input(
-              'data-example-target': "name",
-              'data-action': "input->example#greet"
+              "data-example-target": "name",
+              "data-action": "input->example#greet"
             ),
-            span(
-              'data-example-target': "output"
-            )
+            span("data-example-target": "output")
           ]
         )
       )
     )
   end
-
 end

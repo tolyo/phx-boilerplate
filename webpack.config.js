@@ -1,13 +1,20 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const isProduction = process.env.NODE_ENV == 'production';
+
+const stylesHandler = isProduction
+  ? MiniCssExtractPlugin.loader
+  : 'style-loader';
 
 const config = {
   entry: {
-    app: './lib/web/app.ts',
-    css: './lib/web/app.css',
+    app: './lib/web/app.js',
+    css: './lib/web/app.css'
   },
+
   output: {
     path: path.resolve(__dirname, 'dist'),
   },
@@ -18,17 +25,12 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/i,
+        test: /\.js$/i,
         loader: 'babel-loader',
       },
       {
-        test: /\.ts?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        use: [stylesHandler, 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
@@ -39,19 +41,13 @@ const config = {
       // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
-  resolve: {
-    extensions: ['.ts', '.js'],
-  },
 };
 
 module.exports = () => {
-  [new MiniCssExtractPlugin({ filename: 'app.css' })].forEach((x) =>
-    config.plugins.push(x)
-  );
   if (isProduction) {
     config.mode = 'production';
 
-    //config.plugins.push();
+    config.plugins.push(new MiniCssExtractPlugin());
   } else {
     config.mode = 'development';
   }

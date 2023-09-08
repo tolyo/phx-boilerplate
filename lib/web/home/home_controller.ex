@@ -21,7 +21,7 @@ defmodule Web.HomeController do
       a(id: "logo", href: "/", html: "PHX Boilerplate"),
       nav([
         a(href: "/login", html: "Login"),
-        a(href: "/stimulus", html: "Stimulus"),
+        a(href: "/stimulus", html: "Stimulus")
       ])
     ])
   end

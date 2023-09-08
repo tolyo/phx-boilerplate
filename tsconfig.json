@@ -1,31 +1,23 @@
 {
-  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "dist",
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["ES2018", "DOM"],
+    "target": "ES5",
     "sourceMap": false,
     "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es6",
     "incremental": true,
-    "allowJs" : true,
     "typeRoots": [
       "node_modules/@types",
-      "lib/web/@types"
+      "lib/web/@types/"
     ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
   },
   "include": [
-    "lib/**/*.ts",
-    "test/**/*.ts"
+    "lib/**/*.js",
   ],
   "exclude": [
     "node_modules"

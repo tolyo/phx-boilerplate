@@ -1,4 +1,5 @@
 defmodule Web.Router do
+  alias Web.AngularController
   use Web, :router
 
   pipeline :browser do
@@ -21,6 +22,7 @@ defmodule Web.Router do
     get "/stimulus", StimulusController, :index
     get "/htmx/hello", HtmxController, :hello
     get "/htmx", HtmxController, :index
+    get "/ng", NgController, :index
     get "/alpine", AlpineController, :index
     get "/_home", HomeController, :home
     get "/_login", LoginController, :index

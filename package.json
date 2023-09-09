@@ -25,8 +25,8 @@
     "@babel/core": "^7.22.17",
     "@babel/preset-env": "^7.22.15",
     "@fullhuman/postcss-purgecss": "latest",
-    "@playwright/test": "^1.24.0",
-    "@types/node": "^14.18.59",
+    "@playwright/test": "^1.37.1",
+    "@types/node": "^20.6.0",
     "@types/phoenix": "latest",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@webpack-cli/generators": "latest",
@@ -53,7 +53,6 @@
     "purgecss-webpack-plugin": "^5.0.0",
     "style-loader": "^3.3.3",
     "terser-webpack-plugin": "^5.3.9",
-    "testcafe": "^3.3.0",
     "typescript": "^5.2.2",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"

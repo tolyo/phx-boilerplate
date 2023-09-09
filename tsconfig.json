@@ -12,12 +12,12 @@
     "importHelpers": true,
     "incremental": true,
     "typeRoots": [
-      "node_modules/@types",
       "lib/web/@types/"
     ],
   },
   "include": [
     "lib/**/*.js",
+    "lib/**/*.ts",
   ],
   "exclude": [
     "node_modules"

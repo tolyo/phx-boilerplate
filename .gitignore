@@ -36,4 +36,5 @@ mix.lock
 /test-results/
 /playwright-report/
 /playwright/.cache/
+tsconfig.tsbuildinfo
 package-lock.json

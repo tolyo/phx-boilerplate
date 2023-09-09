@@ -19,6 +19,8 @@ defmodule Web.Router do
 
     get "/", HomeController, :index
     get "/stimulus", StimulusController, :index
+    get "/htmx/hello", HtmxController, :hello
+    get "/htmx", HtmxController, :index
     get "/_home", HomeController, :home
     get "/_login", LoginController, :index
     get "/_register", HomeController, :register

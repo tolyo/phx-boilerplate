@@ -13,16 +13,15 @@ defmodule Web.AlpineController do
 
   def control() do
     div(
-      'x-data': "{ count: 0 }",
+      "x-data": "{ count: 0 }",
       html: [
         button(
-          'x-on:click': "count++",
+          "x-on:click": "count++",
           html: "Increment"
         ),
-        span(
-          'x-text': "count"
-        )
+        span("x-text": "count")
       ]
-    ) |> div()
+    )
+    |> div()
   end
 end

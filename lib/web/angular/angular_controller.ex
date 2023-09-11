@@ -13,14 +13,11 @@ defmodule Web.NgController do
 
   def control() do
     div(
-      'ng-app': nil,
+      "ng-app": nil,
       html: [
-        input(
-          'ng-model': "yourName"
-        ),
+        input("ng-model": "yourName"),
         span("{{ yourName}}")
       ]
     )
-
   end
 end

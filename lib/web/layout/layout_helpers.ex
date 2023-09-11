@@ -12,30 +12,28 @@ defmodule LayoutHelper do
 
   def header do
     [
-      meta(%{
-        charset: "utf-8"
-      }),
-      meta(%{
+      meta(charset: "utf-8"),
+      meta(
         name: "viewport",
         content: "width=device-width, initial-scale=1, shrink-to-fit=no"
-      }),
-      meta(%{
+      ),
+      meta(
         name: "google",
         content: "notranslate"
-      }),
-      link(%{
+      ),
+      link(
         rel: "preconnect",
         href: "https://fonts.gstatic.com"
-      }),
-      link(%{
+      ),
+      link(
         href: "https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap",
         rel: "stylesheet"
-      }),
-      link(%{
+      ),
+      link(
         rel: "shortcut icon",
         href: Web.Router.Helpers.static_path(Web.Endpoint, "/lib/web/favicon.ico"),
         type: "image/x-icon"
-      }),
+      ),
       get_libs() |> Enum.map(&script(src: &1)),
       script("""
           window.app = {};
@@ -43,18 +41,16 @@ defmodule LayoutHelper do
       """),
 
       ### main CSS bundle
-      link(%{
+      link(
         rel: "stylesheet",
         href: static_path(Web.Endpoint, "/dist/app.css")
-      })
+      )
     ]
   end
 
   def footer do
     [
-      script(%{
-        src: static_path(Web.Endpoint, "/dist/app.js")
-      })
+      script(src: static_path(Web.Endpoint, "/dist/app.js"))
     ]
   end
 end

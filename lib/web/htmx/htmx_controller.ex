@@ -14,16 +14,21 @@ defmodule Web.HtmxController do
   def hello(conn, _params) do
     conn
     |> content([
-      div("#{DateTime.utc_now() |> DateTime.to_time()}")
+      div("Current time: #{DateTime.utc_now() |> DateTime.to_time()}")
     ])
   end
 
+  @spec control :: <<_::24, _::_*8>>
   def control() do
-    button(
-      "hx-get": "/htmx/hello",
-      "hx-swap": "afterend",
-      html: "Current time"
-    )
+    [
+      div(id: "res", html: "Current time: "),
+      button(
+        'hx-get': "/htmx/hello",
+        'hx-target': "#res",
+        'hx-swap': "innerHTML",
+        html: "Current time"
+      )
+    ]
     |> div()
   end
 end

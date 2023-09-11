@@ -1,5 +1,4 @@
 defmodule Web.Router do
-  alias Web.AngularController
   use Web, :router
 
   pipeline :browser do

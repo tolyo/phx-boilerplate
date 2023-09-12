@@ -23,9 +23,9 @@ defmodule Web.HtmxController do
     [
       div(id: "res", html: "Current time: "),
       button(
-        'hx-get': "/htmx/hello",
-        'hx-target': "#res",
-        'hx-swap': "innerHTML",
+        "hx-get": "/htmx/hello",
+        "hx-target": "#res",
+        "hx-swap": "innerHTML",
         html: "Current time"
       )
     ]

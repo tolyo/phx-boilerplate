@@ -19,6 +19,7 @@ defmodule Web.Router do
     get "/", HomeController, :index
     get "/hello-html", HelloController, :index
     get "/hello", HelloController, :greet
+    get "/hello/goodbye", HelloController, :goodbye
     get "/hello-nitro", HelloController, :greet_nitro
     get "/stimulus", StimulusController, :index
     get "/htmx/hello", HtmxController, :hello

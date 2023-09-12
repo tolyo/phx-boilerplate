@@ -1,1 +1,5 @@
-<%= @greeting %>
+<h2><%= @greeting %></h2>
+
+<p>Dynamic link demo: </p>
+
+<%= link("Goodbye", to: @conn |> Routes.hello_path(:goodbye)) %>

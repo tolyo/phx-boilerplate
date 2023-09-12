@@ -5,7 +5,6 @@ defmodule Web.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {Web.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -18,6 +17,9 @@ defmodule Web.Router do
     pipe_through :browser
 
     get "/", HomeController, :index
+    get "/hello-html", HelloController, :index
+    get "/hello", HelloController, :greet
+    get "/hello-nitro", HelloController, :greet_nitro
     get "/stimulus", StimulusController, :index
     get "/htmx/hello", HtmxController, :hello
     get "/htmx", HtmxController, :index

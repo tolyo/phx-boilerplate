@@ -27,11 +27,11 @@ db-rebuild: db-downgrade db-update
 
 lint:
 	mix format mix.exs 'lib/**/*.{ex,exs}' 'test/**/*.{ex,exs}'
-	
+
 check:
 	mix dialyzer --format dialyzer
 
 run-test:
 	MIX_ENV=test mix test test/ lib/
 
-run-quality-check: lint check run-test 
+run-quality-check: lint check run-test

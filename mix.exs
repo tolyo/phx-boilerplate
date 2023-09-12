@@ -33,13 +33,14 @@ defmodule MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:nitroux, "~> 0.3.2"},
-      {:phoenix, "~> 1.6.2"},
+      {:phoenix, "~> 1.7.7"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_view, "2.0.2"},
+      {:nitroux, "~> 0.3.2"},
+      {:phoenix_live_reload, "~> 1.4", only: :dev},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.5"},
       {:swoosh, "~> 1.3"},

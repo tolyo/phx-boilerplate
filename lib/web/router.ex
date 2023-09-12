@@ -29,6 +29,8 @@ defmodule Web.Router do
     get "/_home", HomeController, :home
     get "/_login", LoginController, :index
     get "/_register", HomeController, :register
+    get("/products", ProductController, :index)
+    get("/products/new", ProductController, :new)
     get("/*path", HomeController, :index)
   end
 

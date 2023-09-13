@@ -5,7 +5,7 @@ defmodule MixProject do
     [
       app: :app,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -41,7 +41,6 @@ defmodule MixProject do
       {:phoenix_view, "2.0.2"},
       {:nitroux, "~> 0.3.2"},
       {:phoenix_live_reload, "~> 1.4", only: :dev},
-      {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.5"},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},

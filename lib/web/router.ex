@@ -31,6 +31,7 @@ defmodule Web.Router do
     get "/_register", HomeController, :register
     get("/products", ProductController, :index)
     get("/products/new", ProductController, :new)
+    post("/products", ProductController, :create)
     get("/*path", HomeController, :index)
   end
 

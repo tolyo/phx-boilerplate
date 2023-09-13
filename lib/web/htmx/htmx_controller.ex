@@ -18,7 +18,6 @@ defmodule Web.HtmxController do
     ])
   end
 
-  @spec control :: <<_::24, _::_*8>>
   def control() do
     [
       div(id: "res", html: "Current time: "),

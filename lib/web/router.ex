@@ -21,10 +21,8 @@ defmodule Web.Router do
     get "/hello", HelloController, :greet
     get "/hello/goodbye", HelloController, :goodbye
     get "/hello-nitro", HelloController, :greet_nitro
-    get "/stimulus", StimulusController, :index
     get "/htmx/hello", HtmxController, :hello
     get "/htmx", HtmxController, :index
-    get "/ng", NgController, :index
     get "/alpine", AlpineController, :index
     get "/_home", HomeController, :home
     get "/_login", LoginController, :index
@@ -37,6 +35,7 @@ defmodule Web.Router do
     get("/products/:id", ProductController, :get)
     put("/products/", ProductController, :update)
     get("/products/delete/:id", ProductController, :delete)
+
     get("/*path", HomeController, :index)
   end
 

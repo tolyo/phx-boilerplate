@@ -81,21 +81,6 @@ defmodule Web.ProductController do
     ])
   end
 
-  def create(conn, %{"model" => params}) do
-    case @module_schema.changeset(%@module_schema{}, params) |> Repo.insert() do
-      {:ok, _} ->
-        conn
-        |> put_flash(
-          :info,
-          "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} created successfully."
-        )
-        |> redirect(to: "/products/")
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        new(conn, changeset: changeset)
-    end
-  end
-
   def get(conn, %{"id" => id}) do
     case Repo.get(@module_schema, id) do
       nil ->
@@ -111,29 +96,96 @@ defmodule Web.ProductController do
           form(
             action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
             html: button("Delete")
+          ),
+          form(
+            action: get_path(__MODULE__, :edit, Map.fetch!(instance, :id)),
+            html: button("Update")
           )
         ])
     end
   end
 
-  @spec edit(Plug.Conn.t(), map) :: Plug.Conn.t()
   def edit(conn, %{"id" => id}) do
     instance = Repo.get(@module_schema, id)
-    changeset = Depot.change_product(instance)
-    render(conn, :edit, instance: instance, changeset: changeset)
+
+    conn
+    |> content([
+      h1("Update #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
+      case conn.params["model"] do
+        nil ->
+          nil
+
+        v ->
+          @module_schema.changeset(%@module_schema{}, v).errors
+          |> Enum.map(fn {key, {error, _}} -> li("#{key}: #{error}") end)
+          |> ul()
+      end,
+      form(
+        method: "POST",
+        action: get_path(__MODULE__, :update, id),
+        html: [
+          @module_schema.changeset(%@module_schema{}, %{})
+          |> get_required_fields()
+          |> Enum.map(fn x ->
+            [
+              label(
+                html: [
+                  x |> to_string(),
+                  input(
+                    name: "model[#{x |> to_string()}]",
+                    value: Map.fetch!(instance, x) |> to_string()
+                  )
+                ]
+              )
+            ]
+          end),
+          input(
+            type: "hidden",
+            name: ~c"_csrf_token",
+            value: get_csrf_token()
+          ),
+          button("Submit")
+        ]
+      )
+    ])
   end
 
-  def update(conn, %{"id" => id, "product" => product_params}) do
-    product = Depot.get_product!(id)
+  def create(conn, %{"model" => params}) do
+    insert_action =
+      %@module_schema{}
+      |> @module_schema.changeset(params)
+      |> Repo.insert()
 
-    case Depot.update_product(product, product_params) do
-      {:ok, product} ->
+    case insert_action do
+      {:ok, _} ->
+        conn
+        |> put_flash(
+          :info,
+          "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} created successfully."
+        )
+        |> redirect(to: "/products/")
+
+      {:error, %Ecto.Changeset{}} ->
+        new(conn, nil)
+    end
+  end
+
+  def update(conn, %{"id" => id, "model" => params}) do
+    instance = Repo.get(@module_schema, id)
+
+    update_action =
+      instance
+      |> @module_schema.changeset(params)
+      |> Repo.update()
+
+    case update_action do
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Product updated successfully.")
-        |> redirect(to: "/products/#{product}")
+        |> redirect(to: "/products/")
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit, product: product, changeset: changeset)
+      {:error, %Ecto.Changeset{}} ->
+        edit(conn, %{"id" => id})
     end
   end
 

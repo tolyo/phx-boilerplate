@@ -31,11 +31,11 @@ defmodule Web.Router do
     # Products endpoints
     get("/products", ProductController, :list)
     get("/products/new", ProductController, :new)
-    post("/products", ProductController, :create)
     get("/products/:id", ProductController, :get)
-    put("/products/", ProductController, :update)
+    get("/products/edit/:id", ProductController, :edit)
     get("/products/delete/:id", ProductController, :delete)
-
+    post("/products", ProductController, :create)
+    post("/products/:id", ProductController, :update)
     get("/*path", HomeController, :index)
   end
 

@@ -15,7 +15,12 @@ defmodule Web.ProductController do
         ),
         @module_schema
         |> Repo.all()
-        |> Enum.map(&td(to_string(&1)))
+        |> Enum.map(fn instance ->
+          @module_schema.__schema__(:fields)
+          |> Enum.map(fn field -> Map.fetch!(instance, field) end)
+          |> Enum.map(fn x -> td(x |> to_string()) end)
+          |> tr()
+        end)
         |> case do
           [] -> p("No #{@module_schema.__schema__(:source)} found")
           x -> x
@@ -73,25 +78,39 @@ defmodule Web.ProductController do
 
   def create(conn, %{"model" => params}) do
     case @module_schema.changeset(%@module_schema{}, params) |> Repo.insert() do
-      {:ok, product} ->
+      {:ok, _} ->
         conn
-        |> put_flash(:info, "Product created successfully.")
-        |> redirect(to: "/products/#{product}")
+        |> put_flash(
+          :info,
+          "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} created successfully."
+        )
+        |> redirect(to: "/products/")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         new(conn, changeset: changeset)
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    product = Depot.get_product!(id)
-    render(conn, :show, product: product)
+  def get(conn, %{"id" => id}) do
+    case Repo.get(@module_schema, id) do
+      nil ->
+        "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} not found."
+
+      instance ->
+        conn
+        |> content(
+          @module_schema.__schema__(:fields)
+          |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
+          |> Enum.map(fn {field, value} -> div("#{field}: #{value |> to_string()}") end)
+          |> section()
+        )
+    end
   end
 
   def edit(conn, %{"id" => id}) do
-    product = Depot.get_product!(id)
-    changeset = Depot.change_product(product)
-    render(conn, :edit, product: product, changeset: changeset)
+    instance = Repo.get(@module_schema, id)
+    changeset = Depot.change_product(instance)
+    render(conn, :edit, instance: instance, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "product" => product_params}) do

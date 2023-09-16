@@ -32,6 +32,9 @@ defmodule Web.Router do
     get("/products", ProductController, :index)
     get("/products/new", ProductController, :new)
     post("/products", ProductController, :create)
+    get("/products/:id", ProductController, :get)
+    put("/products/", ProductController, :update)
+    delete("/products/:id", ProductController, :delete)
     get("/*path", HomeController, :index)
   end
 

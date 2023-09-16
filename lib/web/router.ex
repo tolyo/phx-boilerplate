@@ -29,12 +29,14 @@ defmodule Web.Router do
     get "/_home", HomeController, :home
     get "/_login", LoginController, :index
     get "/_register", HomeController, :register
-    get("/products", ProductController, :index)
+
+    # Products endpoints
+    get("/products", ProductController, :list)
     get("/products/new", ProductController, :new)
     post("/products", ProductController, :create)
     get("/products/:id", ProductController, :get)
     put("/products/", ProductController, :update)
-    delete("/products/:id", ProductController, :delete)
+    get("/products/delete/:id", ProductController, :delete)
     get("/*path", HomeController, :index)
   end
 

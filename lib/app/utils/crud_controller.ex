@@ -38,7 +38,8 @@ defmodule CrudController do
             href: get_path(__MODULE__, :new),
             html: "New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"
           )
-        ])
+        ]
+        |> MainLayout.wrap())
       end
 
       def new(conn, _params) do
@@ -81,7 +82,7 @@ defmodule CrudController do
               button("Submit")
             ]
           )
-        ])
+        ]|> MainLayout.wrap())
       end
 
       def get(conn, %{"id" => id}) do
@@ -104,7 +105,7 @@ defmodule CrudController do
                 action: get_path(__MODULE__, :edit, Map.fetch!(instance, :id)),
                 html: button("Update")
               )
-            ])
+            ]|> MainLayout.wrap())
         end
       end
 
@@ -150,7 +151,7 @@ defmodule CrudController do
               button("Submit")
             ]
           )
-        ])
+        ]|> MainLayout.wrap())
       end
 
       def create(conn, %{"model" => params}) do

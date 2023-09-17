@@ -1,3 +1,5 @@
-@import "modern-normalize";
+/* Main entrypoint CSS file */
+
+@import "modern-normalize/modern-normalize.css";
 @import "./home/home.css";
 @import "./auth/auth.css";

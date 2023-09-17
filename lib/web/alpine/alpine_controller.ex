@@ -3,12 +3,10 @@ defmodule Web.AlpineController do
 
   def index(conn, _params) do
     conn
-    |> content(
-      MainLayout.wrap([
-        script(src: "//unpkg.com/alpinejs", defer: nil),
-        control()
-      ])
-    )
+    |> MainLayout.content([
+      script(src: "//unpkg.com/alpinejs", defer: nil),
+      control()
+    ])
   end
 
   def control() do

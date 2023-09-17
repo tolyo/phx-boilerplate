@@ -13,9 +13,6 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
-    "@vaadin/router": "^1.7.5",
-    "lit": "^2.8.0",
-    "lit-html": "^2.8.0",
     "modern-normalize": "^2.0.0",
     "phoenix": "^1.7.7",
     "phoenix_html": "file:./deps/phoenix_html"

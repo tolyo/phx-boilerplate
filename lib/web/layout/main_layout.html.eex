@@ -1,5 +1,6 @@
-<%= raw LayoutHelper.header() %>
-This is layout
-<%= @inner_content %>
-
-<%= raw LayoutHelper.footer() %>
+<!DOCTYPE html>
+<html lang="<%= Gettext.get_locale(Web.Gettext) %>">
+    <%= raw LayoutHelper.header() %>
+    <%= @inner_content %>
+    <%= raw LayoutHelper.footer() %>
+</html>

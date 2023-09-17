@@ -3,7 +3,7 @@ defmodule CrudController do
     quote do
       def list(conn, _params) do
         conn
-        |> MainLayout.content([
+        |> content([
           h1("List #{@module_schema.__schema__(:source)}"),
           table([
             tr(
@@ -21,7 +21,8 @@ defmodule CrudController do
                     [
                       td(
                         a(
-                          href: get_path(__MODULE__, :get, Map.fetch!(instance, :id)),
+                          href: "javascript:void(0)",
+                          onclick: "stateService.go('#{@module_schema.__schema__(:source)}:get', {'id': #{Map.fetch!(instance, :id)}})",
                           html: "View"
                         )
                       )
@@ -35,7 +36,8 @@ defmodule CrudController do
             end
           ]),
           a(
-            href: get_path(__MODULE__, :new),
+            href: "javascript:void(0)",
+            onclick: "stateService.go('#{@module_schema.__schema__(:source)}:new')",
             html: "New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"
           )
         ])
@@ -43,7 +45,7 @@ defmodule CrudController do
 
       def new(conn, _params) do
         conn
-        |> MainLayout.content([
+        |> content([
           h1("New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
           case conn.params["model"] do
             nil ->
@@ -54,6 +56,7 @@ defmodule CrudController do
               |> Enum.map(fn {key, {error, _}} -> li("#{key}: #{error}") end)
               |> ul()
           end,
+
           form(
             method: "POST",
             action: get_path(__MODULE__, :create),
@@ -91,7 +94,7 @@ defmodule CrudController do
 
           instance ->
             conn
-            |> MainLayout.content([
+            |> content([
               @module_schema.__schema__(:fields)
               |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
               |> Enum.map(fn {field, value} -> div("#{field}: #{value |> to_string()}") end)
@@ -161,7 +164,7 @@ defmodule CrudController do
               :info,
               "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} created successfully."
             )
-            |> redirect(to: get_path(__MODULE__, :list))
+            |> redirect(to: "/#{@module_schema.__schema__(:source)}")
 
           {:error, %Ecto.Changeset{}} ->
             new(conn, nil)
@@ -183,7 +186,7 @@ defmodule CrudController do
               :info,
               "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} updated successfully."
             )
-            |> redirect(to: get_path(__MODULE__, :list))
+            |> redirect(to: "/#{@module_schema.__schema__(:source)}")
 
           {:error, %Ecto.Changeset{}} ->
             edit(conn, %{"id" => id})
@@ -200,7 +203,7 @@ defmodule CrudController do
           :info,
           "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} deleted successfully."
         )
-        |> redirect(to: get_path(__MODULE__, :list))
+        |> redirect(to: "/#{@module_schema.__schema__(:source)}")
       end
 
       def get_required_fields(%Ecto.Changeset{} = module) do

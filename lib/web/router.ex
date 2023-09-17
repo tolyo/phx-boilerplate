@@ -24,15 +24,15 @@ defmodule Web.Router do
     get "/htmx/hello", HtmxController, :hello
     get "/htmx", HtmxController, :index
     get "/alpine", AlpineController, :index
-    get "/home", HomeController, :home
+    get "/_home", HomeController, :home
     get "/login", LoginController, :index
     get "/register", HomeController, :register
 
     # Products endpoints
-    get "/products", ProductController, :list
-    get "/products/new", ProductController, :new
-    get "/products/:id", ProductController, :get
-    get "/products/edit/:id", ProductController, :edit
+    get "/_products", ProductController, :list
+    get "/_products/new", ProductController, :new
+    get "/_products/:id", ProductController, :get
+    get "/_products/edit/:id", ProductController, :edit
     get "/products/delete/:id", ProductController, :delete
     post "/products", ProductController, :create
     post "/products/:id", ProductController, :update

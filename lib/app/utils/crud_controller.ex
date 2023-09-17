@@ -3,7 +3,7 @@ defmodule CrudController do
     quote do
       def list(conn, _params) do
         conn
-        |> content([
+        |> MainLayout.content([
           h1("List #{@module_schema.__schema__(:source)}"),
           table([
             tr(
@@ -38,17 +38,16 @@ defmodule CrudController do
             href: get_path(__MODULE__, :new),
             html: "New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"
           )
-        ]
-        |> MainLayout.wrap())
+        ])
       end
 
       def new(conn, _params) do
         conn
-        |> content([
+        |> MainLayout.content([
           h1("New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
           case conn.params["model"] do
             nil ->
-              nil
+              ""
 
             v ->
               @module_schema.changeset(%@module_schema{}, v).errors
@@ -82,7 +81,7 @@ defmodule CrudController do
               button("Submit")
             ]
           )
-        ]|> MainLayout.wrap())
+        ])
       end
 
       def get(conn, %{"id" => id}) do
@@ -92,7 +91,7 @@ defmodule CrudController do
 
           instance ->
             conn
-            |> content([
+            |> MainLayout.content([
               @module_schema.__schema__(:fields)
               |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
               |> Enum.map(fn {field, value} -> div("#{field}: #{value |> to_string()}") end)
@@ -105,7 +104,7 @@ defmodule CrudController do
                 action: get_path(__MODULE__, :edit, Map.fetch!(instance, :id)),
                 html: button("Update")
               )
-            ]|> MainLayout.wrap())
+            ])
         end
       end
 
@@ -117,7 +116,7 @@ defmodule CrudController do
           h1("Update #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
           case conn.params["model"] do
             nil ->
-              nil
+              ""
 
             v ->
               @module_schema.changeset(%@module_schema{}, v).errors
@@ -151,7 +150,7 @@ defmodule CrudController do
               button("Submit")
             ]
           )
-        ]|> MainLayout.wrap())
+        ])
       end
 
       def create(conn, %{"model" => params}) do

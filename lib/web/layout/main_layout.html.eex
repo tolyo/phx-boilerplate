@@ -1,0 +1,5 @@
+<%= raw LayoutHelper.header() %>
+This is layout
+<%= @inner_content %>
+
+<%= raw LayoutHelper.footer() %>

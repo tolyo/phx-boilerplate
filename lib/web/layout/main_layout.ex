@@ -1,5 +1,6 @@
 defmodule MainLayout do
   import Nitroux
+  use Web, :controller
 
   def wrap(content) do
     "<!DOCTYPE html>" <>
@@ -12,5 +13,14 @@ defmodule MainLayout do
           LayoutHelper.footer()
         ]
       )
+  end
+
+  def content(conn, data) do
+    conn
+    |> put_view(Web.LayoutView)
+    |> render(
+      "app.html",
+      content: data
+    )
   end
 end

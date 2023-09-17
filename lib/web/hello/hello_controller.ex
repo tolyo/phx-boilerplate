@@ -1,6 +1,6 @@
 defmodule Web.HelloController do
   use Web, :controller
-  plug :put_layout, false
+  plug :put_layout, "main_layout"
 
   def index(conn, _params) do
     conn

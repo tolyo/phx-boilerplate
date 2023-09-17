@@ -29,14 +29,15 @@ defmodule Web.Router do
     get "/_register", HomeController, :register
 
     # Products endpoints
-    get("/products", ProductController, :list)
-    get("/products/new", ProductController, :new)
-    get("/products/:id", ProductController, :get)
-    get("/products/edit/:id", ProductController, :edit)
-    get("/products/delete/:id", ProductController, :delete)
-    post("/products", ProductController, :create)
-    post("/products/:id", ProductController, :update)
-    get("/*path", HomeController, :index)
+    get "/products", ProductController, :list
+    get "/products/new", ProductController, :new
+    get "/products/:id", ProductController, :get
+    get "/products/edit/:id", ProductController, :edit
+    get "/products/delete/:id", ProductController, :delete
+    post "/products", ProductController, :create
+    post "/products/:id", ProductController, :update
+
+    get "/*path", HomeController, :index
   end
 
   # Other scopes may use custom stacks.

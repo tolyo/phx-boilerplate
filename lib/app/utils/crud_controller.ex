@@ -22,7 +22,8 @@ defmodule CrudController do
                       td(
                         a(
                           href: "javascript:void(0)",
-                          onclick: "stateService.go('#{@module_schema.__schema__(:source)}:get', {'id': #{Map.fetch!(instance, :id)}})",
+                          onclick:
+                            "stateService.go('#{@module_schema.__schema__(:source)}:get', {'id': #{Map.fetch!(instance, :id)}})",
                           html: "View"
                         )
                       )
@@ -56,7 +57,6 @@ defmodule CrudController do
               |> Enum.map(fn {key, {error, _}} -> li("#{key}: #{error}") end)
               |> ul()
           end,
-
           form(
             method: "POST",
             action: get_path(__MODULE__, :create),

@@ -15,6 +15,6 @@
 @import "../../node_modules/@picocss/pico/css/pico.classless.css";
 
 @import "./theme.css";
+@import "./fonts.css";
 @import "./home/home.css";
-@import "./auth/auth.css";
 

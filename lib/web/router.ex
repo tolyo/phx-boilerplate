@@ -25,7 +25,6 @@ defmodule Web.Router do
     get "/htmx", HtmxController, :index
     get "/alpine", AlpineController, :index
     get "/_home", HomeController, :home
-    get "/login", LoginController, :index
     get "/register", HomeController, :register
 
     # Products endpoints

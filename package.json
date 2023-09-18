@@ -13,6 +13,7 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
+    "@picocss/pico": "^1.5.10",
     "@uirouter/core": "^6.1.0",
     "modern-normalize": "^2.0.0",
     "phoenix": "^1.7.7",

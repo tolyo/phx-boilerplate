@@ -1,5 +1,20 @@
-/* Main entrypoint CSS file */
+/**
 
-@import "modern-normalize/modern-normalize.css";
+    Main entrypoint CSS file
+
+    We default to a semantic HTML CSS framework (https://picocss.com/) with some cross-browser defaults and resets.
+    This allows us to quickly swap out this choice of defaults without making any changes to the codebase.
+
+**/
+
+
+/* Modern normalize as a stable basis */
+@import "../../node_modules/modern-normalize/modern-normalize.css";
+
+/* Classless HTML reset via Pico CSS */
+@import "../../node_modules/@picocss/pico/css/pico.classless.css";
+
+@import "./theme.css";
 @import "./home/home.css";
 @import "./auth/auth.css";
+

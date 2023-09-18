@@ -11,8 +11,7 @@ const stylesHandler = isProduction
 
 const config = {
   entry: {
-    app: './lib/web/app.js',
-    css: './lib/web/app.css'
+    app: './lib/web/app.js'
   },
 
   output: {
@@ -21,6 +20,7 @@ const config = {
   plugins: [
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+    new MiniCssExtractPlugin({ filename: './app.css' })
   ],
   module: {
     rules: [
@@ -30,7 +30,7 @@ const config = {
       },
       {
         test: /\.css$/i,
-        use: [stylesHandler, 'css-loader', 'postcss-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
@@ -47,7 +47,7 @@ module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
 
-    config.plugins.push(new MiniCssExtractPlugin());
+  //  config.plugins.push(new MiniCssExtractPlugin());
   } else {
     config.mode = 'development';
   }

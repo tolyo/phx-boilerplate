@@ -59,7 +59,7 @@ config :app, Web.Endpoint,
 config :app, Web.Endpoint,
   live_reload: [
     patterns: [
-      ~r{lib/*.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{dist/*.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{lib/web/*.*(ex)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/web/*.*(eex)$}

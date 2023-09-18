@@ -18,7 +18,7 @@ defmodule Web.HomeController do
         h1("Phoenix Framework Boilerplate"),
         div("A starter template for scalable development"),
         div(
-          "x-data": "{ count: 0 }",
+          "x-data": "{ count: 1 }",
           html: [
             button(
               "x-on:click": "count++",

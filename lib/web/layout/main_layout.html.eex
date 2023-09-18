@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="<%= Gettext.get_locale(Web.Gettext) %>">
     <%= raw LayoutHelper.header() %>
     <%= @inner_content %>

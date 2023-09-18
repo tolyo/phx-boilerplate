@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="<%= Gettext.get_locale(Web.Gettext) %>">
     <%= raw LayoutHelper.header() %>
-    <%= @inner_content %>
+    <body>
+        <%= @inner_content %>
+    </body>
     <%= raw LayoutHelper.footer() %>
 </html>

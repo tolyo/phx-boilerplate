@@ -23,7 +23,17 @@ defmodule MainLayout do
     |> put_view(Web.LayoutView)
     |> render(
       "app.html",
-      content: data
+      content: [
+        header(),
+        data
+      ]
+    )
+  end
+
+  def header() do
+    nav(
+      id: "main-layout",
+      html: ul(class: "container", html: li(a(href: "./", html: strong("Scale"))))
     )
   end
 end

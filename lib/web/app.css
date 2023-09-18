@@ -12,9 +12,12 @@
 @import "../../node_modules/modern-normalize/modern-normalize.css";
 
 /* Classless HTML reset via Pico CSS */
-@import "../../node_modules/@picocss/pico/css/pico.classless.css";
+@import "../../node_modules/@picocss/pico/css/pico.css";
+
+@import "../../node_modules/@picocss/pico/css/themes/default.css";
 
 @import "./theme.css";
 @import "./fonts.css";
+@import "./layout/main-layout.css";
 @import "./home/home.css";
 

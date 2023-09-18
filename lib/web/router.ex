@@ -23,7 +23,6 @@ defmodule Web.Router do
     get "/hello-nitro", HelloController, :greet_nitro
     get "/htmx/hello", HtmxController, :hello
     get "/htmx", HtmxController, :index
-    get "/alpine", AlpineController, :index
     get "/_home", HomeController, :home
     get "/register", HomeController, :register
 

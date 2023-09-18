@@ -15,7 +15,7 @@ defmodule DepotFixtures do
         image_url: "some image_url",
         price: "120.5"
       })
-      |> Depot.create_product()
+      |> Depot.Product.create()
 
     product
   end

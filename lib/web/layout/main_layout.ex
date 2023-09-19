@@ -33,7 +33,11 @@ defmodule MainLayout do
   def header() do
     nav(
       id: "main-layout",
-      html: ul(class: "container", html: li(a(href: "./", html: strong("Scale"))))
+      html:
+        ul(
+          class: "container",
+          html: li(a(href: "./", html: strong("Scale")))
+        )
     )
   end
 end

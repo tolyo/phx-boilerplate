@@ -1,0 +1,5 @@
+@import "./confirm_email/confirm_email.css";
+@import "./forgot_password/forgot_password.css";
+@import "./login/login.css";
+@import "./register/register.css";
+@import "./reset_password/reset-password.css"

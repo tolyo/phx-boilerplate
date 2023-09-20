@@ -12,13 +12,12 @@
     "importHelpers": true,
     "incremental": true,
     "typeRoots": [
-      "lib/web/@types/",
-      "node_modules/@types/alpinejs"
+      "lib/web/@types/"
     ],
   },
   "include": [
     "lib/**/*.js",
-    "lib/**/*.ts", "lib/web/utils",
+    "lib/**/*.ts",
   ],
   "exclude": [
   ]

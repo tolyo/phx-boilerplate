@@ -18,7 +18,7 @@
   },
   "include": [
     "lib/**/*.js",
-    "lib/**/*.ts",
+    "lib/**/*.ts", "lib/web/utils",
   ],
   "exclude": [
   ]

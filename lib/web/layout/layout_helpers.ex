@@ -5,7 +5,7 @@ defmodule LayoutHelper do
   @moduledoc """
     Helper for loading list of CDN libs
   """
-  @libs "./lib/web/shared/shared.json" |> File.read!() |> Jason.decode!()
+  @libs "./lib/web/layout/cdn-libs.json" |> File.read!() |> Jason.decode!()
 
   @spec get_libs :: [String.t()]
   def get_libs(), do: @libs

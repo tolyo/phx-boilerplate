@@ -19,14 +19,8 @@
 /* Import the default theme from Pico CSS */
 @import "../../node_modules/@picocss/pico/css/themes/default.css";
 
-/* Import custom theme styles */
-@import "./theme.css";
+/* Import layout CSS submodule */
+@import "./layout/layout.css";
 
-/* Import custom font styles */
-@import "./fonts.css";
-
-/* Import main layout styles */
-@import "./layout/main-layout.css";
-
-/* Import home page specific styles */
+/* Import home module */
 @import "./home/home.css";

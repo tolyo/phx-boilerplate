@@ -26,7 +26,12 @@ defmodule LayoutHelper do
         href: Web.Router.Helpers.static_path(Web.Endpoint, "/lib/web/favicon.ico"),
         type: "image/x-icon"
       ),
-      get_libs() |> Enum.map(&script(src: &1)),
+      get_libs() |> Enum.map(fn x ->
+        case x do
+          %{} -> script(type: "module", src: Map.keys(x) |> List.first())
+          _ -> script(src: x)
+        end
+      end),
       script("""
           window.app = {};
           let EventTarget = EventTargetShim.EventTarget;
@@ -35,7 +40,7 @@ defmodule LayoutHelper do
       ### main CSS bundle
       link(
         rel: "stylesheet",
-        href: static_path(Web.Endpoint, "/dist/app.css")
+        href: static_path(Web.Endpoint, "/lib/web/app.css")
       )
     ]
     |> head()
@@ -43,7 +48,7 @@ defmodule LayoutHelper do
 
   def footer do
     [
-      script(src: static_path(Web.Endpoint, "/dist/app.js"))
+      script(type: "module", src: static_path(Web.Endpoint, "/lib/web/app.js"))
     ]
   end
 end

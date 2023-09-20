@@ -21,15 +21,7 @@ config :app, Web.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "Ddtlj9Pq/Vm+NEzNNug33QPPYog02ZjOo45n53yFDc+wPbmIvGENCvLJrl3n/3T6",
-  watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode=development",
-      "--watch",
-      cd: Path.expand("../", __DIR__)
-    ]
-  ]
+  secret_key_base: "Ddtlj9Pq/Vm+NEzNNug33QPPYog02ZjOo45n53yFDc+wPbmIvGENCvLJrl3n/3T6"
 
 # ## SSL Support
 #
@@ -59,7 +51,7 @@ config :app, Web.Endpoint,
 config :app, Web.Endpoint,
   live_reload: [
     patterns: [
-      ~r{dist/*.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{lib/web/*.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{lib/web/*.*(ex)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/web/*.*(eex)$}

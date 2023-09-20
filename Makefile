@@ -5,7 +5,8 @@ help:
 	@grep -E '[a-zA-Z\.\-]+:.*?@ .*$$' $(MAKEFILE_LIST)| tr -d '#'  | awk 'BEGIN {FS = ":.*?@ "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
 clean:
-	rm -rf dist
+	rm -rf node_modules
+
 setup:
 	npm i
 
@@ -13,7 +14,7 @@ compile:
 	mix do deps.get, deps.compile
 
 # Helper for running dev mode
-run-dev:
+start:
 	MIX_ENV=dev iex -S mix phx.server
 
 db-update:

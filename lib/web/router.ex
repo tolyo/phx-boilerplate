@@ -17,14 +17,13 @@ defmodule Web.Router do
     pipe_through :browser
 
     get "/", HomeController, :index
+    get "/_home", HomeController, :home
     get "/hello-html", HelloController, :index
     get "/hello", HelloController, :greet
     get "/hello/goodbye", HelloController, :goodbye
     get "/hello-nitro", HelloController, :greet_nitro
     get "/htmx/hello", HtmxController, :hello
     get "/htmx", HtmxController, :index
-    get "/_home", HomeController, :home
-    get "/register", HomeController, :register
 
     # Products endpoints
     get "/_products", ProductController, :list

@@ -1,10 +1,9 @@
 #main-layout {
-    border-bottom: 1px solid var(--muted-border-color);
-    & ul {
-        margin: 0 auto;
-        & a {
-            color: inherit;
-
-        }
+  border-bottom: 1px solid var(--muted-border-color);
+  & ul {
+    margin: 0 auto;
+    & a {
+      color: inherit;
     }
+  }
 }

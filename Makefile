@@ -43,6 +43,8 @@ db-rebuild:
 	@make db-update
 
 lint:
+	@echo $(INFO) "Formatting JS/CSS"
+	@npm run lint
 	@echo $(INFO) "Linting JS"
 	@npm run lint
 	@echo $(INFO) "Formatting Elixir"

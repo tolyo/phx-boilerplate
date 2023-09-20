@@ -1,22 +1,32 @@
 /**
+ * Main Entry Point CSS File
+ *
+ * This CSS file serves as the main entry point for your project. It imports
+ * various CSS modules and libraries to establish a stable basis, reset styles,
+ * and define your project's theme and layout.
+ *
+ * We default to a semantic HTML CSS framework (https://picocss.com/)
+ * with some cross-browser defaults and resets. This allows us to quickly
+ * swap out this choice of defaults without making any changes to the codebase.
+ */
 
-    Main entrypoint CSS file
-
-    We default to a semantic HTML CSS framework (https://picocss.com/) with some cross-browser defaults and resets.
-    This allows us to quickly swap out this choice of defaults without making any changes to the codebase.
-
-**/
-
-
-/* Modern normalize as a stable basis */
+/* Import Modern Normalize for consistent baseline styles */
 @import "../../node_modules/modern-normalize/modern-normalize.css";
 
-/* Classless HTML reset via Pico CSS */
+/* Import Pico CSS for classless HTML reset */
 @import "../../node_modules/@picocss/pico/css/pico.css";
 
+/* Import the default theme from Pico CSS */
 @import "../../node_modules/@picocss/pico/css/themes/default.css";
 
+/* Import custom theme styles */
 @import "./theme.css";
+
+/* Import custom font styles */
 @import "./fonts.css";
+
+/* Import main layout styles */
 @import "./layout/main-layout.css";
+
+/* Import home page specific styles */
 @import "./home/home.css";

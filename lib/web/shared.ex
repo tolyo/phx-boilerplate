@@ -1,6 +1,4 @@
 defmodule Web.Shared do
-  import Nitroux.Utils
-
   @doc """
   Generates dynamic paths with optional primary key to pass
   """

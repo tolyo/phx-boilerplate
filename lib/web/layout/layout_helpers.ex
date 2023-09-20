@@ -26,7 +26,8 @@ defmodule LayoutHelper do
         href: Web.Router.Helpers.static_path(Web.Endpoint, "/lib/web/favicon.ico"),
         type: "image/x-icon"
       ),
-      get_libs() |> Enum.map(fn x ->
+      get_libs()
+      |> Enum.map(fn x ->
         case x do
           %{} -> script(type: "module", src: Map.keys(x) |> List.first())
           _ -> script(src: x)

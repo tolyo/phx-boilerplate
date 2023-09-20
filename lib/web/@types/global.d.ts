@@ -1,5 +1,9 @@
+import { Alpine } from "alpinejs";
+
 declare global {
-  interface Window {}
+  interface Window {
+    Alpine: Alpine;
+  }
 }
 
 export {};

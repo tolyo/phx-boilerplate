@@ -12,7 +12,8 @@
     "importHelpers": true,
     "incremental": true,
     "typeRoots": [
-      "lib/web/@types/"
+      "lib/web/@types/",
+      "node_modules/@types/alpinejs"
     ],
   },
   "include": [

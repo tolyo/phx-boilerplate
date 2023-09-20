@@ -43,15 +43,18 @@ db-rebuild:
 	@make db-update
 
 lint:
-	@echo $(INFO) "Formatting JS/CSS"
-	@npm run lint
-	@echo $(INFO) "Linting JS"
+	@echo $(INFO) "Formatting Js/CSS"
+	@npm run format
+	@echo $(INFO) "Linting Js"
 	@npm run lint
 	@echo $(INFO) "Formatting Elixir"
 	@mix format mix.exs 'lib/**/*.{ex,exs}' 'test/**/*.{ex,exs}'
 	@echo $(INFO) "Complete"
 
 check:
+	@echo $(INFO) "Typechecking Js"
+	@npm run typecheck
+	@echo $(INFO) "Typechecking Elixit"
 	@mix dialyzer --format dialyzer
 
 run-test:

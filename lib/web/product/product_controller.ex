@@ -1,6 +1,6 @@
 defmodule Web.ProductController do
   use Web, :controller
 
-  @module_schema Depot.Product
+  @module_schema Product
   use CrudController
 end

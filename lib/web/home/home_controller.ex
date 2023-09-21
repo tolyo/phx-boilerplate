@@ -5,17 +5,20 @@ defmodule Web.HomeController do
   def index(conn, _params) do
     conn
     |> MainLayout.content([
-      Nitroux.Utils.tag("ui-view", id: "root")
+      Nitroux.Utils.tag("ui-view", id: "root", class: "container")
     ])
   end
 
   def home(conn, _params) do
     conn
     |> content([
-      div([
-        h1("Phoenix Framework Boilerplate"),
-        div("A starter template for scalable development")
-      ])
+      div(
+        id: "home",
+        html: [
+          h1("Phoenix Framework Boilerplate"),
+          div("A starter template for scalable development")
+        ]
+      )
     ])
   end
 end

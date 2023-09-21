@@ -1,4 +1,4 @@
-defmodule Depot.Product do
+defmodule Product do
   use Ecto.Schema
   import Ecto.Query, warn: false
   import Ecto.Changeset

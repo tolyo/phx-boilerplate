@@ -6,9 +6,11 @@ defmodule CrudController do
         |> content([
           h1("List #{@module_schema.__schema__(:source)}"),
           table([
-            tr(
-              @module_schema.__schema__(:fields)
-              |> Enum.map(&th(to_string(&1)))
+            thead(
+              tr(
+                @module_schema.__schema__(:fields) ++ [""] # Add coll for view button
+                |> Enum.map(&th(to_string(&1) |> String.split("_") |> Enum.join(" ")))
+              )
             ),
             @module_schema.list()
             |> Enum.map(fn instance ->
@@ -21,7 +23,6 @@ defmodule CrudController do
                     [
                       td(
                         a(
-                          href: "javascript:void(0)",
                           onclick:
                             "stateService.go('#{@module_schema.__schema__(:source)}:get', {'id': #{Map.fetch!(instance, :id)}})",
                           html: "View"
@@ -37,7 +38,6 @@ defmodule CrudController do
             end
           ]),
           a(
-            href: "javascript:void(0)",
             onclick: "stateService.go('#{@module_schema.__schema__(:source)}:new')",
             html: "New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"
           )

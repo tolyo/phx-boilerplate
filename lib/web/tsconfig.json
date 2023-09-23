@@ -11,14 +11,8 @@
     "declaration": false,
     "importHelpers": true,
     "incremental": true,
-    "typeRoots": [
-      "lib/web/@types/"
-    ],
+    "typeRoots": ["@types/"]
   },
-  "include": [
-    "lib/**/*.js",
-    "lib/**/*.ts",
-  ],
-  "exclude": [
-  ]
+  "include": ["./**/*.js", "./**/*.ts"],
+  "exclude": []
 }

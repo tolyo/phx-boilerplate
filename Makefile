@@ -1,6 +1,10 @@
-
+# Frontend management make
+include lib/web/Makefile
 
 default: help
+
+# Frontend make file context
+FRONTEND_CONTEXT = make -C lib/web frontend
 
 INFO = "\033[32m[INFO]\033[0m"
 
@@ -10,16 +14,13 @@ help:
 
 clean:
 	@echo $(INFO) "Cleaning project..."
-	@rm -rf node_modules
-	@rm -rf deps
+	$(FRONTEND_CONTEXT).clean
 	@rm -rf _build
-	@rm package-lock.json
 	@rm mix.lock
 	@echo $(INFO) "Complete. Run 'make setup' to install dependencies"
 
 setup:
-	@echo $(INFO) "Installing NPM dependencies..."
-	@npm i
+	$(FRONTEND_CONTEXT).setup
 	@echo $(INFO) "Installing MIX dependencies..."
 	@mix deps.get
 	@echo $(INFO) "Complete. Run 'make start' to start server"
@@ -45,17 +46,13 @@ db-rebuild:
 	@make db-update
 
 lint:
-	@echo $(INFO) "Formatting Js/CSS"
-	@npm run format
-	@echo $(INFO) "Linting Js"
-	@npm run lint
+	$(FRONTEND_CONTEXT).lint
 	@echo $(INFO) "Formatting Elixir"
 	@mix format mix.exs 'lib/**/*.{ex,exs}' 'test/**/*.{ex,exs}'
 	@echo $(INFO) "Complete"
 
 check:
-	@echo $(INFO) "Typechecking Js"
-	@npm run typecheck
+	$(FRONTEND_CONTEXT).check
 	@echo $(INFO) "Typechecking Elixit"
 	@mix dialyzer --format dialyzer
 

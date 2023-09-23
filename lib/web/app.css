@@ -11,13 +11,13 @@
  */
 
 /* Import Modern Normalize for consistent baseline styles */
-@import "../../node_modules/modern-normalize/modern-normalize.css";
+@import "./node_modules/modern-normalize/modern-normalize.css";
 
 /* Import Pico CSS for classless HTML reset */
-@import "../../node_modules/@picocss/pico/css/pico.css";
+@import "./node_modules/@picocss/pico/css/pico.css";
 
 /* Import the default theme from Pico CSS */
-@import "../../node_modules/@picocss/pico/css/themes/default.css";
+@import "./node_modules/@picocss/pico/css/themes/default.css";
 
 /* Import layout CSS submodule */
 @import "./layout/layout.css";

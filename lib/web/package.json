@@ -2,12 +2,13 @@
   "private": true,
   "scripts": {
     "typecheck": "./node_modules/.bin/tsc",
-    "lint": "./node_modules/.bin/eslint ./lib --fix",
-    "format": "./node_modules/.bin/prettier ./lib --write"
+    "lint": "./node_modules/.bin/eslint ./ --fix",
+    "format": "./node_modules/.bin/prettier ./ --write"
   },
   "dependencies": {
     "@picocss/pico": "^1.5.10",
-    "modern-normalize": "^2.0.0"
+    "modern-normalize": "^2.0.0",
+    "web": "^0.0.2"
   },
   "devDependencies": {
     "@types/alpinejs": "^3.13.1",

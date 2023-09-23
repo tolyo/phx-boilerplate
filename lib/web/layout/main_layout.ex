@@ -35,7 +35,7 @@ defmodule MainLayout do
       html:
         ul(
           class: "container",
-          html: li(a(href: "./", html: strong("PHX")))
+          html: li(a(href: "/", html: strong("PHX")))
         )
     )
   end

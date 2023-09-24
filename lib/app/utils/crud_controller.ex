@@ -1,5 +1,8 @@
 defmodule CrudController do
   defmacro __using__(_opts) do
+    import CrudHelpers
+    import Validation
+
     quote do
       def list(conn, _params) do
         conn
@@ -8,7 +11,8 @@ defmodule CrudController do
           table([
             thead(
               tr(
-                @module_schema.__schema__(:fields) ++ [""] # Add coll for view button
+                # Add coll for view button
+                (@module_schema.__schema__(:fields) ++ [""])
                 |> Enum.map(&th(to_string(&1) |> String.split("_") |> Enum.join(" ")))
               )
             ),
@@ -60,6 +64,8 @@ defmodule CrudController do
           form(
             method: "POST",
             action: get_path(__MODULE__, :create),
+            "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
+            "on-error": "console.log(2)",
             html: [
               @module_schema.changeset(%@module_schema{}, %{})
               |> get_required_fields()
@@ -69,7 +75,7 @@ defmodule CrudController do
                     html: [
                       x |> to_string(),
                       input(
-                        name: "model[#{x |> to_string()}]",
+                        name: "#{x |> to_string()}",
                         value: maybe_field(conn.params["model"], x |> to_string())
                       )
                     ]
@@ -95,13 +101,26 @@ defmodule CrudController do
           instance ->
             conn
             |> content([
+              # Entity view
               @module_schema.__schema__(:fields)
               |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
               |> Enum.map(fn {field, value} -> div("#{field}: #{value |> to_string()}") end)
               |> section(),
+
+              # Entity actions
               form(
                 action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
-                html: button("Delete")
+                method: "GET",
+                "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
+                "on-error": "console.log(2)",
+                html: [
+                  input(
+                    type: "hidden",
+                    name: ~c"_csrf_token",
+                    value: get_csrf_token()
+                  ),
+                  button("Delete")
+                ]
               ),
               form(
                 action: get_path(__MODULE__, :edit, Map.fetch!(instance, :id)),
@@ -138,7 +157,7 @@ defmodule CrudController do
                     html: [
                       x |> to_string(),
                       input(
-                        name: "model[#{x |> to_string()}]",
+                        name: "#{x |> to_string()}",
                         value: Map.fetch!(instance, x) |> to_string()
                       )
                     ]
@@ -156,9 +175,14 @@ defmodule CrudController do
         ])
       end
 
-      def create(conn, %{"model" => params}) do
+      def create(conn, params) do
+        IO.inspect(conn)
+        IO.inspect(params)
+
         case @module_schema.create(params) do
           {:ok, _} ->
+            IO.puts("SUCCESS")
+
             conn
             |> put_flash(
               :info,
@@ -166,8 +190,10 @@ defmodule CrudController do
             )
             |> redirect(to: "/#{@module_schema.__schema__(:source)}")
 
-          {:error, %Ecto.Changeset{}} ->
-            new(conn, nil)
+          {:error, %Ecto.Changeset{} = cmd} ->
+            conn
+            |> put_status(422)
+            |> json(cmd_errors_map(cmd))
         end
       end
 
@@ -188,8 +214,10 @@ defmodule CrudController do
             )
             |> redirect(to: "/#{@module_schema.__schema__(:source)}")
 
-          {:error, %Ecto.Changeset{}} ->
-            edit(conn, %{"id" => id})
+          {:error, %Ecto.Changeset{} = cmd} ->
+            conn
+            |> put_status(422)
+            |> json(cmd_errors_map(cmd))
         end
       end
 
@@ -205,19 +233,6 @@ defmodule CrudController do
         )
         |> redirect(to: "/#{@module_schema.__schema__(:source)}")
       end
-
-      def get_required_fields(%Ecto.Changeset{} = module) do
-        required_keys = Keyword.keys(module.errors)
-
-        module.data
-        |> Map.keys()
-        |> Enum.filter(fn x ->
-          x in required_keys
-        end)
-      end
-
-      def maybe_field(nil, _), do: ""
-      def maybe_field(%{} = str, field), do: str[field]
     end
   end
 end

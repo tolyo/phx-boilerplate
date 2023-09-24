@@ -15,24 +15,6 @@ permissions:
 
 jobs:
   test:
-    # Set up a Postgres DB service. By default, Phoenix applications
-    # use Postgres. This creates a database for running tests.
-    # Additional services can be defined here if required.
-    services:
-      db:
-        image: postgres
-        env:
-            POSTGRES_TEST_DB: exchange_test_db
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-        options: >-
-            --health-cmd pg_isready
-            --health-interval 10s
-            --health-timeout 5s
-            --health-retries 5
-        ports:
-            - 5432:5432
-
     runs-on: ubuntu-latest
     name: Test on OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
     strategy:
@@ -52,6 +34,14 @@ jobs:
     # Step: Check out the code.
     - name: Checkout code
       uses: actions/checkout@v3
+
+    # Step: Start docker-compose db
+    - name: Start db
+      uses: isbang/compose-action@v1.4.1
+      with:
+        down-flags: "--volumes"
+        services: |
+          db
 
     # Step: Define how to cache deps. Restores existing cache if present.
     - name: Cache deps

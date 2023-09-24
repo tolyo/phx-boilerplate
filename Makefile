@@ -56,10 +56,11 @@ check:
 	@echo $(INFO) "Typechecking Elixit"
 	@mix dialyzer --format dialyzer
 
-run-test:
+.PHONY: test
+test:
 	MIX_ENV=test mix test test/ lib/
 
-run-quality-check:
+quality:
 	@make lint
 	@make check
-	@make run-test
+	@make test

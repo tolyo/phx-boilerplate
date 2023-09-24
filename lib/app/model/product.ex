@@ -5,6 +5,7 @@ defmodule Product do
 
   @behaviour CrudBehavior
 
+  @derive Jason.Encoder
   schema "products" do
     field :title, :string
     field :image_url, :string

@@ -51,7 +51,10 @@ defmodule CrudController do
       def get(conn, %{"id" => id}) do
         case @module_schema.get(id) do
           nil ->
-            "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} not found."
+            conn
+            |> content(
+              "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} not found."
+            )
 
           instance ->
             conn
@@ -118,7 +121,7 @@ defmodule CrudController do
 
         conn
         |> content([
-          h1("Update #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
+          h1("Edit #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
           form(
             method: "POST",
             action: get_path(__MODULE__, :update, instance.id),
@@ -153,10 +156,10 @@ defmodule CrudController do
 
       def create(conn, params) do
         case @module_schema.create(params) do
-          {:ok, _} ->
+          {:ok, instance} ->
             conn
             |> put_status(201)
-            |> json(nil)
+            |> json(%{id: instance.id})
 
           {:error, %Ecto.Changeset{} = cmd} ->
             conn

@@ -3,11 +3,15 @@ defmodule Web.ProductControllerTest do
 
   import ProductFixtures
 
-  @create_attrs %{"title" => "some title", "image_url" => "some image_url", "price" => "120.5"}
+  @create_attrs %{
+    title: "some title",
+    image_url: "some image_url",
+    price: "100"
+  }
   @update_attrs %{
     title: "some updated title",
     image_url: "some updated image_url",
-    price: "456.7"
+    price: "200"
   }
   @invalid_attrs %{title: nil, image_url: nil, price: nil}
 
@@ -36,23 +40,24 @@ defmodule Web.ProductControllerTest do
   describe "create product" do
     test "returns 201 to show when data is valid", %{conn: conn} do
       # when
-      conn =
-        post(conn, "/products", %{
-          "title" => "some title",
-          "image_url" => "some image_url",
-          "price" => "120.5"
-        })
+      conn = post(conn, "/products", @create_attrs)
 
       # then
-      assert json_response(conn, 201)
+      assert %{"id" => id} = json_response(conn, 201)
 
-      # conn = get(conn, "/products/#{id}")
-      # assert html_response(conn, 200) =~ "Product #{id}"
+      # when
+      conn = get(conn, "/_products/#{id}")
+
+      # then
+      assert html_response(conn, 200) =~ "id"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, "/products", product: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New Product"
+      # when
+      conn = post(conn, "/products", @invalid_attrs)
+
+      # then
+      assert json_response(conn, 422) != nil
     end
   end
 
@@ -60,25 +65,37 @@ defmodule Web.ProductControllerTest do
     setup [:create_product]
 
     test "renders form for editing chosen product", %{conn: conn, product: product} do
-      conn = get(conn, "/products/#{product}/edit")
-      assert html_response(conn, 200) =~ "Edit Product"
+      # when
+      conn = get(conn, "/_products/edit/#{product.id}")
+
+      # then
+      assert html_response(conn, 200) =~ "Edit"
     end
   end
 
   describe "update product" do
     setup [:create_product]
 
-    test "redirects when data is valid", %{conn: conn, product: product} do
-      conn = put(conn, "/products/#{product}", product: @update_attrs)
-      assert redirected_to(conn) == "/products/#{product}"
+    test "201 when data is valid", %{conn: conn, product: product} do
+      # when
+      conn = post(conn, "/products/#{product.id}", @update_attrs)
 
-      conn = get(conn, "/products/#{product}")
+      # then
+      assert response(conn, 201)
+
+      # when
+      conn = get(conn, "/_products/#{product.id}")
+
+      # then
       assert html_response(conn, 200) =~ "some updated title"
     end
 
     test "renders errors when data is invalid", %{conn: conn, product: product} do
-      conn = put(conn, "/products/#{product}", product: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Product"
+      # when
+      conn = post(conn, "/products/#{product.id}", @invalid_attrs)
+
+      # then
+      assert json_response(conn, 422)
     end
   end
 
@@ -86,12 +103,12 @@ defmodule Web.ProductControllerTest do
     setup [:create_product]
 
     test "deletes chosen product", %{conn: conn, product: product} do
-      conn = get(conn, "/products/delete#{product.id}")
-      assert redirected_to(conn) == "/products"
+      # when
+      conn = get(conn, "/products/delete/#{product.id}")
+      conn = get(conn, "/_products/#{product.id}")
 
-      assert_error_sent 404, fn ->
-        get(conn, "/products/#{product}")
-      end
+      # then
+      assert response(conn, 200) =~ "not found"
     end
   end
 

@@ -48,7 +48,7 @@ db-rebuild:
 lint:
 	$(FRONTEND_CONTEXT).lint
 	@echo $(INFO) "Formatting Elixir"
-	@mix format mix.exs 'lib/**/*.{ex,exs}' 'test/**/*.{ex,exs}'
+	@mix format
 	@echo $(INFO) "Complete"
 
 check:

@@ -1,0 +1,6 @@
+input[aria-invalid="true"] {
+  margin-bottom: 0.25rem;
+  & + span {
+    color: var(--form-element-invalid-border-color);
+  }
+}

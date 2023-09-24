@@ -6,6 +6,10 @@
 
 /* Import main layout styles */
 @import "./main-layout.css";
+
+@import "./styles/input.css";
+@import "./styles/label.css";
+
 ui-view {
   margin-top: 1rem;
   display: flex;

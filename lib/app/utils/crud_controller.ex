@@ -176,13 +176,8 @@ defmodule CrudController do
       end
 
       def create(conn, params) do
-        IO.inspect(conn)
-        IO.inspect(params)
-
         case @module_schema.create(params) do
           {:ok, _} ->
-            IO.puts("SUCCESS")
-
             conn
             |> put_flash(
               :info,
@@ -197,7 +192,7 @@ defmodule CrudController do
         end
       end
 
-      def update(conn, %{"id" => id, "model" => params}) do
+      def update(conn, params) do
         instance = @module_schema.get(id)
 
         update_action =

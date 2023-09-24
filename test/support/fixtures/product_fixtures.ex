@@ -1,7 +1,7 @@
-defmodule DepotFixtures do
+defmodule ProductFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `Depot` context.
+  entities via the `Product` context.
   """
 
   @doc """
@@ -15,7 +15,7 @@ defmodule DepotFixtures do
         image_url: "some image_url",
         price: "120.5"
       })
-      |> Depot.Product.create()
+      |> Product.create()
 
     product
   end

@@ -14,7 +14,7 @@ defmodule Product do
   end
 
   @doc false
-  def changeset(product, attrs) do
+  def changeset(product, attrs \\ %{}) do
     product
     |> cast(attrs, [:title, :image_url, :price])
     |> validate_required([:title, :image_url, :price])

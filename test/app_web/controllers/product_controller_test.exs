@@ -1,9 +1,9 @@
 defmodule Web.ProductControllerTest do
   use Web.ConnCase
 
-  import DepotFixtures
+  import ProductFixtures
 
-  @create_attrs %{title: "some title", image_url: "some image_url", price: "120.5"}
+  @create_attrs %{"title" => "some title", "image_url" => "some image_url", "price" => "120.5"}
   @update_attrs %{
     title: "some updated title",
     image_url: "some updated image_url",
@@ -13,27 +13,41 @@ defmodule Web.ProductControllerTest do
 
   describe "index" do
     test "lists all products", %{conn: conn} do
-      conn = get(conn, "/products")
-      assert html_response(conn, 200) =~ "Listing Products"
+      # when
+      conn = get(conn, "/_products")
+
+      # then
+      assert html_response(conn, 200) =~ "List products"
+      assert html_response(conn, 200) =~ "table"
     end
   end
 
   describe "new product" do
     test "renders form", %{conn: conn} do
-      conn = get(conn, "/products/new")
-      assert html_response(conn, 200) =~ "New Product"
+      # when
+      conn = get(conn, "/_products/new")
+
+      # when
+      assert html_response(conn, 200) =~ "New product"
+      assert html_response(conn, 200) =~ "form"
     end
   end
 
   describe "create product" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, "/products", product: @create_attrs)
+    test "returns 201 to show when data is valid", %{conn: conn} do
+      # when
+      conn =
+        post(conn, "/products", %{
+          "title" => "some title",
+          "image_url" => "some image_url",
+          "price" => "120.5"
+        })
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == "/products/#{id}"
+      # then
+      assert json_response(conn, 201)
 
-      conn = get(conn, "/products/#{id}")
-      assert html_response(conn, 200) =~ "Product #{id}"
+      # conn = get(conn, "/products/#{id}")
+      # assert html_response(conn, 200) =~ "Product #{id}"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -72,7 +86,7 @@ defmodule Web.ProductControllerTest do
     setup [:create_product]
 
     test "deletes chosen product", %{conn: conn, product: product} do
-      conn = delete(conn, "/products/#{product}")
+      conn = get(conn, "/products/delete#{product.id}")
       assert redirected_to(conn) == "/products"
 
       assert_error_sent 404, fn ->

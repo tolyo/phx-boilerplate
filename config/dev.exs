@@ -4,7 +4,7 @@ import Config
 config :app, Repo,
   username: System.get_env("POSTGRES_USER", "postgres"),
   password: System.get_env("POSTGRES_PASSWORD", "postgres"),
-  database: System.get_env("POSTGRES_DB", "boilerplate_db"),
+  database: System.get_env("POSTGRES_DB", "db"),
   hostname: System.get_env("POSTGRES_HOST", "localhost"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

@@ -1,8 +1,8 @@
 version: "3.8"
 
 x-common-variables: &common-variables
-  POSTGRES_DB: boilerplate_db
-  POSTGRES_TEST_DB: boilerplate_test_db
+  POSTGRES_DB: db
+  POSTGRES_TEST_DB: test_db
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_PORT: 5432
@@ -12,7 +12,7 @@ volumes:
   postgres-storage:
 services:
   db:
-    container_name: boilerplate_db
+    container_name: db
     image: postgres:14
     ports:
       - 5432:5432
@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
   app:
-    container_name: boilerplate_app
+    container_name: app
     build:
       context: .
     depends_on:

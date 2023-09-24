@@ -48,24 +48,44 @@ defmodule CrudController do
         ])
       end
 
+      def get(conn, %{"id" => id}) do
+        case @module_schema.get(id) do
+          nil ->
+            "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} not found."
+
+          instance ->
+            conn
+            |> content([
+              # Entity view
+              @module_schema.__schema__(:fields)
+              |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
+              |> Enum.map(fn {field, value} -> div("#{field}: #{value |> to_string()}") end)
+              |> section(),
+
+              # Entity actions
+              form(
+                action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
+                method: "GET",
+                "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
+                html: button("Delete")
+              ),
+              button(
+                onclick:
+                  "stateService.go('#{@module_schema.__schema__(:source)}:edit', {'id': #{Map.fetch!(instance, :id)}})",
+                html: "Edit"
+              )
+            ])
+        end
+      end
+
       def new(conn, _params) do
         conn
         |> content([
           h1("New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
-          case conn.params["model"] do
-            nil ->
-              ""
-
-            v ->
-              @module_schema.changeset(%@module_schema{}, v).errors
-              |> Enum.map(fn {key, {error, _}} -> li("#{key}: #{error}") end)
-              |> ul()
-          end,
           form(
             method: "POST",
             action: get_path(__MODULE__, :create),
             "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
-            "on-error": "console.log(2)",
             html: [
               @module_schema.changeset(%@module_schema{}, %{})
               |> get_required_fields()
@@ -93,61 +113,17 @@ defmodule CrudController do
         ])
       end
 
-      def get(conn, %{"id" => id}) do
-        case @module_schema.get(id) do
-          nil ->
-            "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} not found."
-
-          instance ->
-            conn
-            |> content([
-              # Entity view
-              @module_schema.__schema__(:fields)
-              |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
-              |> Enum.map(fn {field, value} -> div("#{field}: #{value |> to_string()}") end)
-              |> section(),
-
-              # Entity actions
-              form(
-                action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
-                method: "GET",
-                "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
-                "on-error": "console.log(2)",
-                html: [
-                  input(
-                    type: "hidden",
-                    name: ~c"_csrf_token",
-                    value: get_csrf_token()
-                  ),
-                  button("Delete")
-                ]
-              ),
-              form(
-                action: get_path(__MODULE__, :edit, Map.fetch!(instance, :id)),
-                html: button("Update")
-              )
-            ])
-        end
-      end
-
       def edit(conn, %{"id" => id}) do
         instance = @module_schema.get(id)
 
         conn
         |> content([
           h1("Update #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
-          case conn.params["model"] do
-            nil ->
-              ""
-
-            v ->
-              @module_schema.changeset(%@module_schema{}, v).errors
-              |> Enum.map(fn {key, {error, _}} -> li("#{key}: #{error}") end)
-              |> ul()
-          end,
           form(
             method: "POST",
-            action: get_path(__MODULE__, :update, id),
+            action: get_path(__MODULE__, :update, instance.id),
+            "on-success":
+              "stateService.go('#{@module_schema.__schema__(:source)}:get', {'id': #{Map.fetch!(instance, :id)}})",
             html: [
               @module_schema.changeset(%@module_schema{}, %{})
               |> get_required_fields()
@@ -179,11 +155,8 @@ defmodule CrudController do
         case @module_schema.create(params) do
           {:ok, _} ->
             conn
-            |> put_flash(
-              :info,
-              "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} created successfully."
-            )
-            |> redirect(to: "/#{@module_schema.__schema__(:source)}")
+            |> put_status(201)
+            |> json(nil)
 
           {:error, %Ecto.Changeset{} = cmd} ->
             conn
@@ -192,22 +165,14 @@ defmodule CrudController do
         end
       end
 
-      def update(conn, params) do
+      def update(conn, %{"id" => id} = params) do
         instance = @module_schema.get(id)
 
-        update_action =
-          @module_schema.update(instance, params)
-          |> @module_schema.changeset(params)
-          |> Repo.update()
-
-        case update_action do
+        case @module_schema.update(instance, params) do
           {:ok, _} ->
             conn
-            |> put_flash(
-              :info,
-              "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} updated successfully."
-            )
-            |> redirect(to: "/#{@module_schema.__schema__(:source)}")
+            |> put_status(201)
+            |> json(nil)
 
           {:error, %Ecto.Changeset{} = cmd} ->
             conn

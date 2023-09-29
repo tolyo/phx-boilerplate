@@ -60,6 +60,11 @@ check:
 test:
 	MIX_ENV=test mix test test/ lib/
 
+functional-test:
+	@MIX_ENV=test mix phx.server &
+	$(FRONTEND_CONTEXT).test
+	@kill -9 $$(lsof -t -i :4000) # todo: remove port
+
 quality:
 	@make lint
 	@make check

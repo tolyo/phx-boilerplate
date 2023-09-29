@@ -48,8 +48,6 @@ defmodule LayoutHelper do
   end
 
   def footer do
-    [
-      script(type: "module", src: static_path(Web.Endpoint, "/lib/web/app.js"))
-    ]
+    script(type: "module", src: static_path(Web.Endpoint, "/lib/web/app.js"))
   end
 end

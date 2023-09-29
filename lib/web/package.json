@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "@picocss/pico": "^1.5.10",
-    "modern-normalize": "^2.0.0",
-    "web": "^0.0.2"
+    "modern-normalize": "^2.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.38.1",
     "@types/alpinejs": "^3.13.1",
     "@types/node": "^20.6.0",
     "@types/phoenix": "latest",

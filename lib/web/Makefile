@@ -17,3 +17,7 @@ frontend.lint:
 frontend.check:
 	@echo $(INFO) "Typechecking Js"
 	@npm run typecheck
+
+frontend.test:
+	@echo $(INFO) "Playwright test JS"
+	@npx playwright test

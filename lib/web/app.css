@@ -14,7 +14,7 @@
 @import "./node_modules/modern-normalize/modern-normalize.css";
 
 /* Import Pico CSS for classless HTML reset */
-@import "./node_modules/@picocss/pico/css/pico.css";
+@import "./theme/pico.css";
 
 /* Import theme submodule */
 @import "./theme/theme.css";

@@ -16,6 +16,9 @@
 /* Import Pico CSS for classless HTML reset */
 @import "./node_modules/@picocss/pico/css/pico.css";
 
+/* Import theme submodule */
+@import "./theme/theme.css";
+
 /* Import layout CSS submodule */
 @import "./layout/layout.css";
 

@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "@picocss/pico": "^1.5.10",
-    "modern-normalize": "^2.0.0"
+    "modern-normalize": "^2.0.0",
+    "web": "^0.0.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.38.1",

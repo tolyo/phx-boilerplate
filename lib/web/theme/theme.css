@@ -1,14 +1,22 @@
 /**
+    Main entry point for customizing themes and styles
+    that can be used across various layouts.
+*/
 
-    This theme generated via https://uicolors.app/.
+/* Import custom font styles */
+@import "./fonts.css";
+
+/* Import shared styles submodule*/
+@import "./styles/styles.css";
+
+/**
+    The color theme below was generated via https://uicolors.app/.
     Base color: #0a6fbd
     Modify as necessary
 
 **/
 
 :root {
-  font-family: "Inter", sans-serif;
-
   /* Swap this out */
   --theme-50: #f1f8fe;
   --theme-100: #e1effd;

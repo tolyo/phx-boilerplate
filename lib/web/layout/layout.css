@@ -1,14 +1,5 @@
-/* Import custom theme styles */
-@import "./theme.css";
-
-/* Import custom font styles */
-@import "./fonts.css";
-
 /* Import main layout styles */
 @import "./main-layout.css";
-
-/* Import shared styles submodule*/
-@import "./styles/styles.css";
 
 ui-view {
   margin-top: 1rem;

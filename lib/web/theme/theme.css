@@ -6,6 +6,9 @@
 /* Import custom font styles */
 @import "./fonts.css";
 
+/* Import typography variables */
+@import "./typography.css";
+
 /* Import shared styles submodule*/
 @import "./styles/styles.css";
 
@@ -13,8 +16,7 @@
     The color theme below was generated via https://uicolors.app/.
     Base color: #0a6fbd
     Modify as necessary
-
-**/
+*/
 
 :root {
   /* Swap this out */
@@ -31,7 +33,7 @@
   --theme-950: #0b2846;
   /* End Swap this out */
 
-  /** Example Pico mods **/
+  /* Example Pico mods**/
   --primary: var(--theme-500) !important;
   --primary-hover: var(--theme-600) !important;
 }

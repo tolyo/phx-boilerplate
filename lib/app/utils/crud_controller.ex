@@ -4,7 +4,8 @@ defmodule CrudController do
     import Validation
 
     quote do
-      def list(conn, _params) do
+      ### Views ###
+      def list(conn, _) do
         conn
         |> content([
           h1("List #{@module_schema.__schema__(:source)}"),
@@ -53,35 +54,49 @@ defmodule CrudController do
           nil ->
             conn
             |> content(
-              "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} not found."
+              "#{@module_schema.__schema__(:source) |> StringHelper.depluralize() |> String.capitalize()} not found"
             )
 
           instance ->
             conn
             |> content([
+              h1(
+                "#{@module_schema.__schema__(:source) |> StringHelper.depluralize() |> String.capitalize()} details"
+              ),
+
               # Entity view
               @module_schema.__schema__(:fields)
               |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
-              |> Enum.map(fn {field, value} -> div("#{field}: #{value |> to_string()}") end)
-              |> section(),
-
-              # Entity actions
-              form(
-                action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
-                method: "GET",
-                "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
-                html: button("Delete")
-              ),
-              button(
-                onclick:
-                  "stateService.go('#{@module_schema.__schema__(:source)}:edit', {'id': #{Map.fetch!(instance, :id)}})",
-                html: "Edit"
-              )
+              |> Enum.map(fn {field, value} ->
+                tr([
+                  th("#{field}"),
+                  td("#{value |> to_string()}")
+                ])
+              end)
+              |> table(),
+              footer([
+                # Entity actions
+                button(
+                  onclick:
+                    "stateService.go('#{@module_schema.__schema__(:source)}:edit', {'id': #{Map.fetch!(instance, :id)}})",
+                  html: "Edit"
+                ),
+                form(
+                  action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
+                  method: "GET",
+                  "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
+                  html:
+                    button(
+                      class: "secondary",
+                      html: "Delete"
+                    )
+                )
+              ])
             ])
         end
       end
 
-      def new(conn, _params) do
+      def new(conn, _) do
         conn
         |> content([
           h1("New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
@@ -154,6 +169,7 @@ defmodule CrudController do
         ])
       end
 
+      ### Form actions ###
       def create(conn, params) do
         case @module_schema.create(params) do
           {:ok, instance} ->

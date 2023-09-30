@@ -34,7 +34,7 @@ node_modules/
 /dist/
 mix.lock
 /test-results/
-/playwright-report/
+**/playwright-report/
 /playwright/.cache/
 tsconfig.tsbuildinfo
 package-lock.json

@@ -2,26 +2,21 @@ defmodule Web.HelloController do
   use Web, :controller
   plug :put_layout, "main_layout"
 
-  def index(conn, _params) do
-    conn
-    |> html("sample html")
-  end
+  @moduledoc """
+  This example showcases the use of Nitroux tags with standard .eex templates.
+  Standard Phoenix views are always available as a fallback
+  """
 
-  def greet(conn, _params) do
-    conn
-    |> render(
-      "hello.html",
-      greeting: "Hello world"
-    )
-  end
+  def index(conn, _), do: conn |> html("sample html")
 
-  def goodbye(conn, _params) do
-    conn
-    |> render("goodbye.html")
-  end
+  def greet(conn, _),
+    do:
+      conn
+      |> render(
+        "hello.html",
+        greeting: "Hello world"
+      )
 
-  def greet_nitro(conn, _params) do
-    conn
-    |> content(h1("Hello world"))
-  end
+  def goodbye(conn, _), do: conn |> render("goodbye.html")
+  def greet_nitro(conn, _), do: conn |> content(h1("Hello Nitroux"))
 end

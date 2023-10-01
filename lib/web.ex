@@ -26,7 +26,7 @@ defmodule Web do
       import Nitroux
       import Nitroux.Plug
       import Web.Shared
-      alias Web.Router.Helpers, as: Routes
+      import Web.Router.Helpers
     end
   end
 
@@ -35,6 +35,9 @@ defmodule Web do
       use Phoenix.View,
         root: "lib/web",
         namespace: Web
+
+      # Import all router paths for them to be available in views
+      import Web.Router.Helpers
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -83,9 +86,6 @@ defmodule Web do
     quote do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
-
-      # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
-      import Phoenix.LiveView.Helpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View

@@ -1,3 +1,3 @@
-<h2>Goodbye</h2>
+<h2>Goodbye world</h2>
 
-<%= link("Greet", to: @conn |> Routes.hello_path(:greet)) %>
+<a href=<%= hello_path(@conn, :greet) %>> Back to greet</a>

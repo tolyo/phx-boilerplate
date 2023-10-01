@@ -48,6 +48,12 @@ defmodule LayoutHelper do
   end
 
   def footer do
-    script(type: "module", src: static_path(Web.Endpoint, "/lib/web/app.js"))
+    [
+      script(type: "module", src: static_path(Web.Endpoint, "/lib/web/app.js")),
+      script(
+        acync: true,
+        src: "http://localhost:3000/browser-sync/browser-sync-client.js?v=2.27.10"
+      )
+    ]
   end
 end

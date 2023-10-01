@@ -30,6 +30,7 @@ compile:
 
 # Helper for running dev mode
 start:
+	$(FRONTEND_CONTEXT).start &
 	MIX_ENV=dev iex -S mix phx.server
 
 db-update:

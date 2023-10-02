@@ -7,8 +7,7 @@
     "format": "./node_modules/.bin/prettier ./ --write"
   },
   "dependencies": {
-    "modern-normalize": "^2.0.0",
-    "web": "^0.0.2"
+    "modern-normalize": "^2.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.38.1",
@@ -24,6 +23,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "web": "^0.0.2"
   }
 }

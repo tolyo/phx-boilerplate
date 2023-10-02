@@ -32,6 +32,7 @@ compile:
 start:
 	$(FRONTEND_CONTEXT).start &
 	MIX_ENV=dev iex -S mix phx.server
+	pkill -P $$
 
 db-update:
 	MIX_ENV=dev mix ecto.migrate

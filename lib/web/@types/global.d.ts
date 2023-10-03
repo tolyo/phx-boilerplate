@@ -6,6 +6,7 @@ declare global {
     Alpine: Alpine;
     router: UIRouter;
     stateService: StateService;
+    EventBus: EventTarget;
   }
 }
 

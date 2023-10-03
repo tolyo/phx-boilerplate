@@ -2,24 +2,25 @@ defmodule CrudController do
   defmacro __using__(_opts) do
     import CrudHelpers
     import Validation
+    import StringHelper
 
     quote do
       ### Views ###
       def list(conn, _) do
         conn
         |> content([
-          h1("List #{@module_schema.__schema__(:source)}"),
+          h1("List #{entity()}"),
           table([
             thead(
               tr(
                 # Add coll for view button
-                (@module_schema.__schema__(:fields) ++ [""])
+                (entity_fields() ++ [""])
                 |> Enum.map(&th(to_string(&1) |> String.split("_") |> Enum.join(" ")))
               )
             ),
             @module_schema.list()
             |> Enum.map(fn instance ->
-              @module_schema.__schema__(:fields)
+              entity_fields()
               |> Enum.map(fn field -> Map.fetch!(instance, field) end)
               |> Enum.map(fn x -> td(x |> to_string()) end)
               |> case do
@@ -29,7 +30,7 @@ defmodule CrudController do
                       td(
                         a(
                           onclick:
-                            "stateService.go('#{@module_schema.__schema__(:source)}:get', {'id': #{Map.fetch!(instance, :id)}})",
+                            "stateService.go('#{entity()}:get', {'id': #{Map.fetch!(instance, :id)}})",
                           html: "View"
                         )
                       )
@@ -38,13 +39,13 @@ defmodule CrudController do
               |> tr()
             end)
             |> case do
-              [] -> p("No #{@module_schema.__schema__(:source)} found")
+              [] -> p("No #{entity() |> depluralize()} found")
               x -> x
             end
           ]),
           a(
-            onclick: "stateService.go('#{@module_schema.__schema__(:source)}:new')",
-            html: "New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"
+            onclick: "stateService.go('#{entity()}:new')",
+            html: "New #{entity() |> depluralize()}"
           )
         ])
       end
@@ -53,19 +54,15 @@ defmodule CrudController do
         case @module_schema.get(id) do
           nil ->
             conn
-            |> content(
-              "#{@module_schema.__schema__(:source) |> StringHelper.depluralize() |> String.capitalize()} not found"
-            )
+            |> content("#{entity() |> depluralize() |> String.capitalize()} not found")
 
           instance ->
             conn
             |> content([
-              h1(
-                "#{@module_schema.__schema__(:source) |> StringHelper.depluralize() |> String.capitalize()} details"
-              ),
+              h1("#{entity() |> depluralize() |> String.capitalize()} details"),
 
               # Entity view
-              @module_schema.__schema__(:fields)
+              entity_fields()
               |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
               |> Enum.map(fn {field, value} ->
                 tr([
@@ -78,13 +75,13 @@ defmodule CrudController do
                 # Entity actions
                 button(
                   onclick:
-                    "stateService.go('#{@module_schema.__schema__(:source)}:edit', {'id': #{Map.fetch!(instance, :id)}})",
+                    "stateService.go('#{entity()}:edit', {'id': #{Map.fetch!(instance, :id)}})",
                   html: "Edit"
                 ),
                 form(
                   action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
                   method: "GET",
-                  "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
+                  "on-success": "stateService.go('#{entity()}')",
                   html:
                     button(
                       class: "secondary",
@@ -99,7 +96,7 @@ defmodule CrudController do
       def new(conn, _) do
         conn
         |> content([
-          h1("New #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
+          h1("New #{entity() |> depluralize()}"),
           form(
             method: "POST",
             action: get_path(__MODULE__, :create),
@@ -206,8 +203,11 @@ defmodule CrudController do
         {:ok, _} = Repo.delete(instance)
 
         conn
-        |> redirect(to: "/#{@module_schema.__schema__(:source)}")
+        |> redirect(to: "/#{entity()}")
       end
+
+      def entity(), do: @module_schema.__schema__(:source)
+      def entity_fields(), do: @module_schema.__schema__(:fields)
     end
   end
 end

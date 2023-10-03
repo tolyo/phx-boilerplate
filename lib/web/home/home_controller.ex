@@ -30,4 +30,11 @@ defmodule Web.HomeController do
       div("for scalable development")
     ])
   end
+
+  def subview2(conn, _) do
+    conn
+    |> content([
+      div("for fast development")
+    ])
+  end
 end

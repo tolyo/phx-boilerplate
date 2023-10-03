@@ -108,6 +108,7 @@ defmodule Web.ProductControllerTest do
       conn = get(conn, "/_products/#{product.id}")
 
       # then
+      # TODO this should return 404
       assert response(conn, 200) =~ "not found"
     end
   end

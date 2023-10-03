@@ -206,10 +206,6 @@ defmodule CrudController do
         {:ok, _} = Repo.delete(instance)
 
         conn
-        |> put_flash(
-          :info,
-          "#{@module_schema.__schema__(:source) |> StringHelper.depluralize()} deleted successfully."
-        )
         |> redirect(to: "/#{@module_schema.__schema__(:source)}")
       end
     end

@@ -1,8 +1,9 @@
 defmodule Web.Shared do
   @doc """
   Generates dynamic paths with optional primary key to pass
+  TODO: Add more detailed typespects
   """
-  @spec get_path(any, any, nil | String.t()) :: any
+  @spec get_path(any, any, nil | String.t()) :: String.t()
   def get_path(module, path, attrs \\ nil) do
     path =
       Web.Router.__routes__()

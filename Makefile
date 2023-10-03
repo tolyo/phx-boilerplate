@@ -55,8 +55,9 @@ lint:
 
 check:
 	$(FRONTEND_CONTEXT).check
-	# @echo $(INFO) "Typechecking Elixir"
-	# @mix dialyzer --format dialyzer
+	@echo $(INFO) "Typechecking Elixir"
+	@mix compile
+# TODO: @mix dialyzer --format dialyzer
 
 .PHONY: test
 test:

@@ -1,6 +1,6 @@
 defmodule Web.HomeController do
   use Web, :controller
-  import Nitroux.Utils
+  import Components
   plug :put_layout, "main_layout.html"
 
   def index(conn, _params) do
@@ -17,12 +17,8 @@ defmodule Web.HomeController do
         id: "home",
         html: [
           h1("Phoenix Framework Boilerplate"),
-          div("A starter template for scalable development"),
-          div(
-            html: [
-              tag("partial-component", url: "_subview")
-            ]
-          )
+          div("A starter template"),
+          partial(get_path(__MODULE__, :subview))
         ]
       )
     ])
@@ -31,7 +27,7 @@ defmodule Web.HomeController do
   def subview(conn, _) do
     conn
     |> content([
-      div("This is a subview demo")
+      div("for scalable development")
     ])
   end
 end

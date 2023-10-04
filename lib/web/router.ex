@@ -32,7 +32,7 @@ defmodule Web.Router do
     get "/_products/new", ProductController, :new
     get "/_products/:id", ProductController, :get
     get "/_products/edit/:id", ProductController, :edit
-    get "/products/delete/:id", ProductController, :delete
+    post "/products/delete/:id", ProductController, :delete
     post "/products", ProductController, :create
     post "/products/:id", ProductController, :update
 

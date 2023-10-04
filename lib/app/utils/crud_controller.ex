@@ -3,6 +3,7 @@ defmodule CrudController do
     import CrudHelpers
     import Validation
     import StringHelper
+    import Forms
 
     quote do
       ### Views ###
@@ -77,14 +78,15 @@ defmodule CrudController do
                   html: "Edit"
                 ),
                 form(
-                  action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
-                  method: "GET",
-                  "on-success": StateService.list(entity()),
-                  html:
+                  "data-action": get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
+                  "data-success": StateService.list(entity()),
+                  html: [
+                    csrf_input(),
                     button(
                       class: "secondary",
                       html: "Delete"
                     )
+                  ]
                 )
               ])
             ])
@@ -96,9 +98,8 @@ defmodule CrudController do
         |> content([
           h1("New #{entity() |> depluralize()}"),
           form(
-            method: "POST",
-            action: get_path(__MODULE__, :create),
-            "on-success": StateService.list(entity()),
+            "data-action": get_path(__MODULE__, :create),
+            "data-success": StateService.list(entity()),
             html: [
               @module_schema.changeset(%@module_schema{}, %{})
               |> get_required_fields()
@@ -129,9 +130,8 @@ defmodule CrudController do
         |> content([
           h1("Edit #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
           form(
-            method: "POST",
-            action: get_path(__MODULE__, :update, instance.id),
-            "on-success": StateService.get(entity(), Map.fetch!(instance, :id)),
+            "data-action": get_path(__MODULE__, :update, instance.id),
+            "data-success": StateService.get(entity(), Map.fetch!(instance, :id)),
             html: [
               @module_schema.changeset(%@module_schema{}, %{})
               |> get_required_fields()
@@ -197,14 +197,6 @@ defmodule CrudController do
 
       def entity(), do: @module_schema.__schema__(:source)
       def entity_fields(), do: @module_schema.__schema__(:fields)
-
-      def csrf_input() do
-        input(
-          type: "hidden",
-          name: "_csrf_token",
-          value: get_csrf_token()
-        )
-      end
     end
   end
 end

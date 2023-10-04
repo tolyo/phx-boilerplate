@@ -22,8 +22,8 @@ defmodule CrudController do
             @module_schema.list()
             |> Enum.map(fn instance ->
               entity_fields()
-              |> Enum.map(fn field -> Map.fetch!(instance, field) end)
-              |> Enum.map(fn x -> td(x |> to_string()) end)
+              |> Enum.map(&Map.fetch!(instance, &1))
+              |> Enum.map(&td(&1 |> to_string()))
               |> case do
                 v ->
                   v ++
@@ -63,11 +63,10 @@ defmodule CrudController do
 
               # Entity view
               entity_fields()
-              |> Enum.map(fn field -> {field, Map.fetch!(instance, field)} end)
-              |> Enum.map(fn {field, value} ->
+              |> Enum.map(fn field ->
                 tr([
                   th("#{field}"),
-                  td("#{value |> to_string()}")
+                  td("#{Map.fetch!(instance, field) |> to_string()}")
                 ])
               end)
               |> table(),
@@ -78,10 +77,11 @@ defmodule CrudController do
                   html: "Edit"
                 ),
                 form(
-                  "data-action": get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
+                  "data-action": get_path(__MODULE__, :delete),
                   "data-success": StateService.list(entity()),
                   html: [
                     csrf_input(),
+                    input(hidden: true, name: "id", value: Map.fetch!(instance, :id)),
                     button(
                       class: "secondary",
                       html: "Delete"

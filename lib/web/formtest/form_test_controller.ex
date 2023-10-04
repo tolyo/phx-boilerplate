@@ -12,7 +12,7 @@ defmodule Web.FormtestController do
         %{
           "value1" => value1,
           "value2" => value2
-        } = params
+        }
       ) do
     x = Integer.parse(value1) |> elem(0)
     y = Integer.parse(value2) |> elem(0)

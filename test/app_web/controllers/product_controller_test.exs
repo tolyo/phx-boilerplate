@@ -104,7 +104,7 @@ defmodule Web.ProductControllerTest do
 
     test "deletes chosen product", %{conn: conn, product: product} do
       # when
-      conn = get(conn, "/products/delete/#{product.id}")
+      conn = post(conn, "/products/delete/", %{id: product.id})
       conn = get(conn, "/_products/#{product.id}")
 
       # then

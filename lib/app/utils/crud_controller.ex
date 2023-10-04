@@ -99,7 +99,7 @@ defmodule CrudController do
           h1("New #{entity() |> depluralize()}"),
           form(
             "data-action": get_path(__MODULE__, :create),
-            "data-success": StateService.list(entity()),
+            "data-success": StateService.created(entity()),
             html: [
               @module_schema.changeset(%@module_schema{}, %{})
               |> get_required_fields()
@@ -192,7 +192,7 @@ defmodule CrudController do
         {:ok, _} = Repo.delete(instance)
 
         conn
-        |> redirect(to: "/#{entity()}")
+        |> send_resp(204, "")
       end
 
       def entity(), do: @module_schema.__schema__(:source)

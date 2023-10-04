@@ -8,6 +8,7 @@
  * We default to a semantic HTML CSS framework (https://picocss.com/)
  * with some cross-browser defaults and resets. This allows us to quickly
  * swap out this choice of defaults without making any changes to the codebase.
+ * Recommended reference design implementation https://pink.appwrite.io/
  */
 
 /* Import Modern Normalize for consistent baseline styles */

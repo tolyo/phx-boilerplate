@@ -29,8 +29,7 @@ defmodule CrudController do
                     [
                       td(
                         a(
-                          onclick:
-                            "stateService.go('#{entity()}:get', {'id': #{Map.fetch!(instance, :id)}})",
+                          onclick: StateService.get(entity(), Map.fetch!(instance, :id)),
                           html: "View"
                         )
                       )
@@ -44,7 +43,7 @@ defmodule CrudController do
             end
           ]),
           a(
-            onclick: "stateService.go('#{entity()}:new')",
+            onclick: StateService.new(entity()),
             html: "New #{entity() |> depluralize()}"
           )
         ])
@@ -74,14 +73,13 @@ defmodule CrudController do
               footer([
                 # Entity actions
                 button(
-                  onclick:
-                    "stateService.go('#{entity()}:edit', {'id': #{Map.fetch!(instance, :id)}})",
+                  onclick: StateService.edit(entity(), Map.fetch!(instance, :id)),
                   html: "Edit"
                 ),
                 form(
                   action: get_path(__MODULE__, :delete, Map.fetch!(instance, :id)),
                   method: "GET",
-                  "on-success": "stateService.go('#{entity()}')",
+                  "on-success": StateService.list(entity()),
                   html:
                     button(
                       class: "secondary",
@@ -100,7 +98,7 @@ defmodule CrudController do
           form(
             method: "POST",
             action: get_path(__MODULE__, :create),
-            "on-success": "stateService.go('#{@module_schema.__schema__(:source)}')",
+            "on-success": StateService.list(entity()),
             html: [
               @module_schema.changeset(%@module_schema{}, %{})
               |> get_required_fields()
@@ -137,8 +135,7 @@ defmodule CrudController do
           form(
             method: "POST",
             action: get_path(__MODULE__, :update, instance.id),
-            "on-success":
-              "stateService.go('#{@module_schema.__schema__(:source)}:get', {'id': #{Map.fetch!(instance, :id)}})",
+            "on-success": StateService.get(entity(), Map.fetch!(instance, :id)),
             html: [
               @module_schema.changeset(%@module_schema{}, %{})
               |> get_required_fields()

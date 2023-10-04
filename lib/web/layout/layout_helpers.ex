@@ -23,7 +23,7 @@ defmodule LayoutHelper do
       ),
       link(
         rel: "shortcut icon",
-        href: Web.Router.Helpers.static_path(Web.Endpoint, "/lib/web/favicon.ico"),
+        href: Web.Endpoint |> static_path("/lib/web/favicon.ico"),
         type: "image/x-icon"
       ),
       get_libs()
@@ -41,7 +41,7 @@ defmodule LayoutHelper do
       ### main CSS bundle
       link(
         rel: "stylesheet",
-        href: static_path(Web.Endpoint, "/lib/web/app.css")
+        href: Web.Endpoint |> static_path("/lib/web/app.css")
       )
     ]
     |> head()
@@ -49,9 +49,9 @@ defmodule LayoutHelper do
 
   def footer do
     [
-      script(type: "module", src: static_path(Web.Endpoint, "/lib/web/app.js")),
+      script(type: "module", src: Web.Endpoint |> static_path("/lib/web/app.js")),
       script(
-        acync: true,
+        async: true,
         src: "http://localhost:3000/browser-sync/browser-sync-client.js?v=2.27.10"
       )
     ]

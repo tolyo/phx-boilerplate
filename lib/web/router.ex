@@ -21,8 +21,11 @@ defmodule Web.Router do
     get "/_subview2", HomeController, :subview2
     get "/hello-html", HelloController, :index
     get "/hello", HelloController, :greet
+    get "/time", HelloController, :time
     get "/hello/goodbye", HelloController, :goodbye
     get "/hello-nitro", HelloController, :greet_nitro
+    get "/form-test", FormtestController, :index
+    post "/form-test/calculate", FormtestController, :calculate
 
     # Products endpoints
     get "/_products", ProductController, :list

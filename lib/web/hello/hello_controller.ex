@@ -19,4 +19,5 @@ defmodule Web.HelloController do
 
   def goodbye(conn, _), do: conn |> render("goodbye.html")
   def greet_nitro(conn, _), do: conn |> content(h1("Hello Nitroux"))
+  def time(conn, _), do: conn |> content(div("#{DateTime.utc_now() |> DateTime.to_time()}"))
 end

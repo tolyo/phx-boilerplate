@@ -115,11 +115,7 @@ defmodule CrudController do
                   )
                 ]
               end),
-              input(
-                type: "hidden",
-                name: ~c"_csrf_token",
-                value: get_csrf_token()
-              ),
+              csrf_input(),
               button("Submit")
             ]
           )
@@ -152,11 +148,7 @@ defmodule CrudController do
                   )
                 ]
               end),
-              input(
-                type: "hidden",
-                name: ~c"_csrf_token",
-                value: get_csrf_token()
-              ),
+              csrf_input(),
               button("Submit")
             ]
           )
@@ -205,6 +197,14 @@ defmodule CrudController do
 
       def entity(), do: @module_schema.__schema__(:source)
       def entity_fields(), do: @module_schema.__schema__(:fields)
+
+      def csrf_input() do
+        input(
+          type: "hidden",
+          name: "_csrf_token",
+          value: get_csrf_token()
+        )
+      end
     end
   end
 end

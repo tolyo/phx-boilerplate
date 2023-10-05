@@ -24,6 +24,10 @@ defmodule Web.HomeController do
     ])
   end
 
+  @spec subview(
+          %{:resp_headers => any, :status => atom | 1..1_114_111, optional(any) => any},
+          any
+        ) :: Plug.Conn.t()
   def subview(conn, _) do
     conn
     |> content([

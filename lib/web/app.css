@@ -15,10 +15,25 @@
 @import "./node_modules/modern-normalize/modern-normalize.css";
 
 /* Import theme submodule */
-@import "./theme/theme.css";
+/* Import custom font styles */
+@import "./theme/fonts.css";
+
+/* Import custom colors */
+@import "./theme/color.css";
+
+/* Import typography variables */
+@import "./theme/typography.css";
+
+/* HTMl element styles */
+@import "./theme/styles/button.css";
+@import "./theme/styles/footer.css";
+@import "./theme/styles/headings.css";
+@import "./theme/styles/input.css";
+@import "./theme/styles/label.css";
 
 /* Import layout CSS submodule */
 @import "./layout/layout.css";
+@import "./layout/navigation-header.css";
 
 /* Import submodules */
 @import "./home/home.css";

@@ -18,6 +18,7 @@ defmodule MainLayout do
       )
   end
 
+  @spec content(any, any) :: none
   def content(conn, data) do
     conn
     |> put_view(Web.LayoutView)
@@ -31,12 +32,6 @@ defmodule MainLayout do
   end
 
   def header() do
-    nav(
-      html:
-        ul(
-          class: "container",
-          html: li(a(href: "/", html: strong("PHX")))
-        )
-    )
+    header(nav(a(href: "/", html: strong("PHX"))))
   end
 end

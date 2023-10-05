@@ -1,4 +1,4 @@
-/*!
+/* !
  * Pico CSS v1.5.10 (https://picocss.com)
  * Copyright 2019-2023 - Licensed under MIT
  */
@@ -2963,7 +2963,7 @@ area,
 button,
 input,
 label,
-select,
+a select,
 summary,
 textarea,
 [tabindex] {

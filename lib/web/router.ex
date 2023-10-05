@@ -22,6 +22,7 @@ defmodule Web.Router do
     get "/hello-html", HelloController, :index
     get "/hello", HelloController, :greet
     get "/time", HelloController, :time
+    get "/typography", HelloController, :typography
     get "/hello/goodbye", HelloController, :goodbye
     get "/hello-nitro", HelloController, :greet_nitro
     get "/form-test", FormtestController, :index

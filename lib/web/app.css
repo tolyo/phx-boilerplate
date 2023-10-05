@@ -14,9 +14,6 @@
 /* Import Modern Normalize for consistent baseline styles */
 @import "./node_modules/modern-normalize/modern-normalize.css";
 
-/* Import Pico CSS for classless HTML reset */
-@import "./theme/pico.css";
-
 /* Import theme submodule */
 @import "./theme/theme.css";
 

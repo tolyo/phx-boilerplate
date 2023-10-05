@@ -1,0 +1,50 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  color: var(--gray-900);
+  font-family: var(--font-family);
+}
+
+h1 {
+  font-size: var(--scale-5);
+  margin-bottom: var(--scale-2);
+  font-weight: var(--weight-bold);
+}
+
+h2 {
+  font-size: var(--scale-4);
+  margin-bottom: var(--scale-neg-1);
+  font-weight: var(--weight-semibold);
+}
+
+h3 {
+  font-size: var(--scale-3);
+  margin-bottom: var(--scale-0);
+  font-weight: var(--weight-medium);
+  color: var(--gray-900);
+}
+
+h4 {
+  font-size: var(--scale-2);
+  margin-bottom: var(--scale-neg-1);
+  font-weight: var(--weight-medium);
+  color: var(--gray-900);
+}
+
+h5 {
+  font-size: var(--scale-1);
+  margin-bottom: var(--scale-neg-2);
+  font-weight: var(--weight-medium);
+  color: var(--gray-800);
+}
+
+h6 {
+  font-size: var(--scale-neg-1);
+  margin-bottom: var(--scale-neg-4);
+  font-weight: var(--weight-light);
+  color: var(--gray-700);
+}

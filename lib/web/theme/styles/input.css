@@ -1,5 +1,5 @@
 input[aria-invalid="true"] {
-  margin-bottom: var(--scale-minus-6);
+  margin-bottom: var(--scale-neg-6);
   & + span {
     color: var(--form-element-invalid-border-color);
   }

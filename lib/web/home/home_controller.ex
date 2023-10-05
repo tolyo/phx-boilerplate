@@ -3,10 +3,11 @@ defmodule Web.HomeController do
   import Components
   plug :put_layout, "main_layout.html"
 
+  @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
   def index(conn, _params) do
     conn
     |> MainLayout.content([
-      Nitroux.Utils.tag("ui-view", id: "root", class: "container")
+      Nitroux.Utils.tag("ui-view", id: "root")
     ])
   end
 
@@ -24,10 +25,6 @@ defmodule Web.HomeController do
     ])
   end
 
-  @spec subview(
-          %{:resp_headers => any, :status => atom | 1..1_114_111, optional(any) => any},
-          any
-        ) :: Plug.Conn.t()
   def subview(conn, _) do
     conn
     |> content([

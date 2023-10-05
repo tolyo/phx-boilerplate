@@ -176,8 +176,7 @@ defmodule CrudController do
         case @module_schema.update(instance, params) do
           {:ok, _} ->
             conn
-            |> put_status(201)
-            |> json(nil)
+            |> send_resp(204, "")
 
           {:error, %Ecto.Changeset{} = cmd} ->
             conn

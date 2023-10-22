@@ -1,14 +1,24 @@
-<!-- AJAX enabled form -->
-<form data-action="/form-test/calculate"
-      data-update="#myDiv">
 
-    <!-- Input two values -->
-    <input name="value1" type="integer" value="0">
-    <input name="value2" type="integer" value="0">
-    <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
+<main>
+  <!-- AJAX enabled form -->
+  <form data-action="/form-test/calculate"
+        data-update="#myDiv">
+      <h4> Calculator </h4>
+      <!-- Input two values -->
+      <label>
+        <input name="value1" type="integer" value="0">
+      </label>
+      <label>
+        <input name="value2" type="integer" value="0">
+      </label>
 
-    <button type="submit">Calculate</button>
+      <input type="hidden"
+        name="_csrf_token"
+        value="<%= Plug.CSRFProtection.get_csrf_token() %>">
 
-</form>
+      <button type="submit">Add</button>
 
-<div id="myDiv"></div>
+  </form>
+
+  <div id="myDiv"></div>
+</main>

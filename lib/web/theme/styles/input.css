@@ -1,6 +1,20 @@
+input {
+  padding: var(--scale-neg-3);
+  border: 1px solid var(--gray-400);
+  border-radius: var(--scale-neg-6);
+  outline: none;
+}
+
+input:focus {
+  border: 1px solid var(--gray-600);
+}
+
 input[aria-invalid="true"] {
   margin-bottom: var(--scale-neg-6);
+  border: 1px solid var(--red-400);
   & + span {
-    color: var(--form-element-invalid-border-color);
+    color: var(--red-500);
+    font-size: small;
+    text-transform: lowercase;
   }
 }

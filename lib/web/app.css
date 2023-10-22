@@ -5,35 +5,32 @@
  * various CSS modules and libraries to establish a stable basis, reset styles,
  * and define your project's theme and layout.
  *
- * We default to a semantic HTML CSS framework (https://picocss.com/)
- * with some cross-browser defaults and resets. This allows us to quickly
+ * Semantic HTML CSS styles are used as defaults. This allows to quickly
  * swap out this choice of defaults without making any changes to the codebase.
  * Recommended reference design implementation https://pink.appwrite.io/
  */
 
-/* Import Modern Normalize for consistent baseline styles */
+/* Modern Normalize for consistent baseline styles */
 @import "./node_modules/modern-normalize/modern-normalize.css";
 
-/* Import theme submodule */
-/* Import custom font styles */
+/* Default styles */
 @import "./theme/fonts.css";
-
-/* Import custom colors */
 @import "./theme/color.css";
-
-/* Import typography variables */
 @import "./theme/typography.css";
 
 /* HTMl element styles */
 @import "./theme/styles/button.css";
 @import "./theme/styles/footer.css";
+@import "./theme/styles/form.css";
 @import "./theme/styles/headings.css";
 @import "./theme/styles/input.css";
 @import "./theme/styles/label.css";
+@import "./theme/styles/main.css";
+@import "./theme/styles/table.css";
 
-/* Import layout CSS submodule */
+/* Layout submodule */
 @import "./layout/layout.css";
 @import "./layout/navigation-header.css";
 
-/* Import submodules */
+/* App submodules */
 @import "./home/home.css";

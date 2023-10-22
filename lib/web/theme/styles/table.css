@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+  border-spacing: 0;
+  text-indent: 0;
+  color: var(--gray-800);
+  border: solid 1px var(--gray-200);
+  border-radius: var(--scale-neg-5);
+  & th {
+    text-transform: uppercase;
+    border-bottom: solid 1px var(--gray-200);
+  }
+  & th,
+  & td {
+    text-align: start;
+    padding: var(--scale-neg-2);
+  }
+
+  margin-bottom: var(--scale-0);
+}
+
+/* Actions to be executed with table data should be wrapped inside a menu tag */
+table + menu {
+  display: flex;
+  justify-content: flex-end;
+}

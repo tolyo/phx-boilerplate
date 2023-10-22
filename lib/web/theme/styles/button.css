@@ -6,17 +6,17 @@ button {
   padding: var(--scale-neg-3) var(--scale-0);
   border-radius: var(--radius-sm);
   cursor: pointer;
-}
 
-button:hover {
-  background-color: var(--theme-600);
-}
+  &:hover {
+    background-color: var(--theme-600);
+  }
 
-button:active {
-  background-color: var(--theme-700);
-}
+  &:active {
+    background-color: var(--theme-700);
+  }
 
-button:disabled {
-  color: var(--theme-700);
-  background-color: var(--theme-200);
+  &:disabled {
+    color: var(--theme-700);
+    background-color: var(--theme-200);
+  }
 }

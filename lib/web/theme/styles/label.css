@@ -1,6 +1,15 @@
 label {
+  display: grid;
+  margin-bottom: var(--scale-0);
+  text-transform: capitalize;
+  color: var(--gray-700);
+
   &.error {
-    color: var(--form-element-invalid-border-color);
+    color: var(--red-600);
     margin-bottom: var(--scale-1);
+  }
+
+  & input {
+    margin-top: var(--scale-neg-6);
   }
 }

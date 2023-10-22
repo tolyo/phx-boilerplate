@@ -9,45 +9,49 @@ defmodule CrudController do
       ### Views ###
       def list(conn, _) do
         conn
-        |> content([
-          h1("List #{entity()}"),
-          table([
-            thead(
-              tr(
-                # Add coll for view button
-                (entity_fields() ++ [""])
-                |> Enum.map(&th(to_string(&1) |> String.split("_") |> Enum.join(" ")))
-              )
-            ),
-            @module_schema.list()
-            |> Enum.map(fn instance ->
-              entity_fields()
-              |> Enum.map(&Map.fetch!(instance, &1))
-              |> Enum.map(&td(&1 |> to_string()))
-              |> case do
-                v ->
-                  v ++
-                    [
-                      td(
-                        a(
-                          onclick: StateService.get(entity(), Map.fetch!(instance, :id)),
-                          html: "View"
+        |> content(
+          main([
+            h1("List #{entity()}"),
+            table([
+              thead(
+                tr(
+                  # Add coll for view button
+                  (entity_fields() ++ [""])
+                  |> Enum.map(&th(to_string(&1) |> String.split("_") |> Enum.join(" ")))
+                )
+              ),
+              @module_schema.list()
+              |> Enum.map(fn instance ->
+                entity_fields()
+                |> Enum.map(&Map.fetch!(instance, &1))
+                |> Enum.map(&td(&1 |> to_string()))
+                |> case do
+                  v ->
+                    v ++
+                      [
+                        td(
+                          a(
+                            onclick: StateService.get(entity(), Map.fetch!(instance, :id)),
+                            html: "View"
+                          )
                         )
-                      )
-                    ]
+                      ]
+                end
+                |> tr()
+              end)
+              |> case do
+                [] -> p("No #{entity() |> depluralize()} found")
+                x -> x
               end
-              |> tr()
-            end)
-            |> case do
-              [] -> p("No #{entity() |> depluralize()} found")
-              x -> x
-            end
-          ]),
-          a(
-            onclick: StateService.new(entity()),
-            html: "New #{entity() |> depluralize()}"
-          )
-        ])
+            ]),
+            menu([
+              button(
+                onclick: StateService.new(entity()),
+                html: "Create"
+              )
+            ])
+          ])
+        )
       end
 
       def get(conn, %{"id" => id}) do
@@ -95,32 +99,34 @@ defmodule CrudController do
 
       def new(conn, _) do
         conn
-        |> content([
-          h1("New #{entity() |> depluralize()}"),
-          form(
-            "data-action": get_path(__MODULE__, :create),
-            "data-success": StateService.created(entity()),
-            html: [
-              @module_schema.changeset(%@module_schema{}, %{})
-              |> get_required_fields()
-              |> Enum.map(fn x ->
-                [
-                  label(
-                    html: [
-                      x |> to_string(),
-                      input(
-                        name: "#{x |> to_string()}",
-                        value: maybe_field(conn.params["model"], x |> to_string())
-                      )
-                    ]
-                  )
-                ]
-              end),
-              csrf_input(),
-              button("Submit")
-            ]
-          )
-        ])
+        |> content(
+          main([
+            form(
+              "data-action": get_path(__MODULE__, :create),
+              "data-success": StateService.created(entity()),
+              html: [
+                h1("New #{entity() |> depluralize()}"),
+                @module_schema.changeset(%@module_schema{}, %{})
+                |> get_required_fields()
+                |> Enum.map(fn x ->
+                  [
+                    label(
+                      html: [
+                        x |> to_string(),
+                        input(
+                          name: "#{x |> to_string()}",
+                          value: maybe_field(conn.params["model"], x |> to_string())
+                        )
+                      ]
+                    )
+                  ]
+                end),
+                csrf_input(),
+                button("Submit")
+              ]
+            )
+          ])
+        )
       end
 
       def edit(conn, %{"id" => id}) do

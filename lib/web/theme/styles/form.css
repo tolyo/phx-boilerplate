@@ -1,0 +1,9 @@
+form {
+  display: flex;
+  flex-direction: column;
+  padding: var(--scale-0);
+
+  & button {
+    width: fit-content;
+  }
+}

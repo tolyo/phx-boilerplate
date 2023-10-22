@@ -19,6 +19,7 @@
 @import "./theme/typography.css";
 
 /* HTMl element styles */
+@import "./theme/styles/anchor.css";
 @import "./theme/styles/button.css";
 @import "./theme/styles/footer.css";
 @import "./theme/styles/form.css";

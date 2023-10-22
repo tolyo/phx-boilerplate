@@ -31,7 +31,7 @@ defmodule CrudController do
                       [
                         td(
                           a(
-                            onclick: StateService.get(entity(), Map.fetch!(instance, :id)),
+                            onclick: StateService.get(entity(), instance.id),
                             html: "View"
                           )
                         )

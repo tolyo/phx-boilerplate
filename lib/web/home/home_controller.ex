@@ -19,7 +19,11 @@ defmodule Web.HomeController do
         html: [
           h1("Phoenix Framework Boilerplate"),
           div("A starter template"),
-          partial(get_path(__MODULE__, :subview), "test")
+          partial(get_path(__MODULE__, :subview), "test"),
+          section([
+            a(href: get_path(Web.DemoController, :index), html: "Demo"),
+            a(href: get_path(Web.DocsController, :index), html: "Docs")
+          ])
         ]
       )
     ])

@@ -20,6 +20,8 @@ defmodule Web.Router do
     get "/_subview", HomeController, :subview
     get "/_subview2", HomeController, :subview2
     get "/hello-html", HelloController, :index
+    get "/docs", DocsController, :index
+    get "/demo", DemoController, :index
     get "/hello", HelloController, :greet
     get "/time", HelloController, :time
     get "/typography", HelloController, :typography

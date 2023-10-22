@@ -2,4 +2,14 @@
   background-color: inherit !important;
   margin-top: 10rem;
   text-align: center;
+
+  & section {
+    padding-top: var(--scale-2);
+    width: 8rem;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    justify-content: space-between;
+  }
 }

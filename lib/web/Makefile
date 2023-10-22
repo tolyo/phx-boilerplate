@@ -7,6 +7,7 @@ frontend.clean:
 frontend.setup:
 	@echo $(INFO) "Installing NPM dependencies..."
 	@npm i web
+	@npx playwright install
 
 frontend.start:
 	@echo $(INFO) "Starting browsersync ..."
@@ -24,4 +25,4 @@ frontend.check:
 
 frontend.test:
 	@echo $(INFO) "Playwright test JS"
-	@npx playwright test
+	@npm run playwright

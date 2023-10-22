@@ -4,7 +4,8 @@
     "browsersync": "browser-sync start --files ./",
     "typecheck": "./node_modules/.bin/tsc",
     "lint": "./node_modules/.bin/eslint ./ --fix",
-    "format": "./node_modules/.bin/prettier ./ --write"
+    "format": "./node_modules/.bin/prettier ./ --write",
+    "playwright": "./node_modules/.bin/playwright test"
   },
   "dependencies": {
     "modern-normalize": "^2.0.0"
@@ -22,8 +23,8 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",
+    "playwright": "^1.39.0",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
     "web": "^0.0.2"
   }
 }

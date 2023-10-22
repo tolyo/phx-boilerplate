@@ -30,9 +30,11 @@ defmodule CrudController do
                     v ++
                       [
                         td(
-                          a(
-                            onclick: StateService.get(entity(), instance.id),
-                            html: "View"
+                          menu(
+                            a(
+                              onclick: StateService.get(entity(), instance.id),
+                              html: "View"
+                            )
                           )
                         )
                       ]
@@ -63,35 +65,36 @@ defmodule CrudController do
           instance ->
             conn
             |> content([
-              h1("#{entity() |> depluralize() |> String.capitalize()} details"),
-
-              # Entity view
-              entity_fields()
-              |> Enum.map(fn field ->
-                tr([
-                  th("#{field}"),
-                  td("#{Map.fetch!(instance, field) |> to_string()}")
+              main([
+                h1("#{entity() |> depluralize() |> String.capitalize()} details"),
+                # Entity view
+                entity_fields()
+                |> Enum.map(fn field ->
+                  tr([
+                    th("#{field}"),
+                    td("#{Map.fetch!(instance, field) |> to_string()}")
+                  ])
+                end)
+                |> table(),
+                footer([
+                  # Entity actions
+                  button(
+                    onclick: StateService.edit(entity(), Map.fetch!(instance, :id)),
+                    html: "Edit"
+                  ),
+                  form(
+                    "data-action": get_path(__MODULE__, :delete),
+                    "data-success": StateService.list(entity()),
+                    html: [
+                      csrf_input(),
+                      input(hidden: true, name: "id", value: Map.fetch!(instance, :id)),
+                      button(
+                        class: "secondary",
+                        html: "Delete"
+                      )
+                    ]
+                  )
                 ])
-              end)
-              |> table(),
-              footer([
-                # Entity actions
-                button(
-                  onclick: StateService.edit(entity(), Map.fetch!(instance, :id)),
-                  html: "Edit"
-                ),
-                form(
-                  "data-action": get_path(__MODULE__, :delete),
-                  "data-success": StateService.list(entity()),
-                  html: [
-                    csrf_input(),
-                    input(hidden: true, name: "id", value: Map.fetch!(instance, :id)),
-                    button(
-                      class: "secondary",
-                      html: "Delete"
-                    )
-                  ]
-                )
               ])
             ])
         end

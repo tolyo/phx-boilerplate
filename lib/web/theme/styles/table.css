@@ -5,15 +5,19 @@ table {
   color: var(--gray-800);
   border: solid 1px var(--gray-200);
   border-radius: var(--scale-neg-5);
-  & th {
-    text-transform: uppercase;
-    border-bottom: solid 1px var(--gray-200);
+  & thead {
+    & th {
+      text-transform: uppercase;
+      border-bottom: solid 1px var(--gray-200);
+    }
   }
   & th,
   & td {
     text-align: start;
     padding: var(--scale-neg-2);
-    &:last-of-type {
+    & menu {
+      padding: 0;
+      margin: 0;
       text-align: end;
     }
   }

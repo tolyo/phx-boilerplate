@@ -76,12 +76,12 @@ defmodule Web.ProductControllerTest do
   describe "update product" do
     setup [:create_product]
 
-    test "201 when data is valid", %{conn: conn, product: product} do
+    test "204 when data is valid", %{conn: conn, product: product} do
       # when
       conn = post(conn, "/products/#{product.id}", @update_attrs)
 
       # then
-      assert response(conn, 201)
+      assert response(conn, 204)
 
       # when
       conn = get(conn, "/_products/#{product.id}")

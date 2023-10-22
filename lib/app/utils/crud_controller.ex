@@ -67,18 +67,19 @@ defmodule CrudController do
             |> content([
               main([
                 h1("#{entity() |> depluralize() |> String.capitalize()} details"),
-                # Entity view
-                entity_fields()
-                |> Enum.map(fn field ->
-                  tr([
-                    th("#{field}"),
-                    td("#{Map.fetch!(instance, field) |> to_string()}")
-                  ])
-                end)
-                |> table(),
-                footer([
+                table(
+                  # Entity view
+                  entity_fields()
+                  |> Enum.map(fn field ->
+                    tr([
+                      th("#{field}"),
+                      td(Map.fetch!(instance, field) |> to_string())
+                    ])
+                  end)
+                ),
+                menu([
                   # Entity actions
-                  button(
+                  a(
                     onclick: StateService.edit(entity(), Map.fetch!(instance, :id)),
                     html: "Edit"
                   ),

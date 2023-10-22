@@ -25,8 +25,8 @@ defmodule Web.Router do
     get "/typography", HelloController, :typography
     get "/hello/goodbye", HelloController, :goodbye
     get "/hello-nitro", HelloController, :greet_nitro
-    get "/ajax", FormtestController, :index
-    post "/form-test/calculate", FormtestController, :calculate
+    get "/ajax", AjaxtestController, :index
+    post "/ajax-test/calculate", AjaxtestController, :calculate
 
     # Products endpoints
     get "/_products", ProductController, :list

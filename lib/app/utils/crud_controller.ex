@@ -110,23 +110,7 @@ defmodule CrudController do
               "data-success": StateService.created(entity()),
               html: [
                 h1("New #{entity() |> depluralize()}"),
-                @module_schema.changeset(%@module_schema{}, %{})
-                |> get_required_fields()
-                |> Enum.map(fn x ->
-                  [
-                    label(
-                      html: [
-                        x |> to_string(),
-                        input(
-                          name: "#{x |> to_string()}",
-                          value: maybe_field(conn.params["model"], x |> to_string())
-                        )
-                      ]
-                    )
-                  ]
-                end),
-                csrf_input(),
-                button("Submit")
+                form_fields(nil)
               ]
             )
           ])
@@ -138,30 +122,16 @@ defmodule CrudController do
 
         conn
         |> content([
-          h1("Edit #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
-          form(
-            "data-action": get_path(__MODULE__, :update, instance.id),
-            "data-success": StateService.get(entity(), Map.fetch!(instance, :id)),
-            html: [
-              @module_schema.changeset(%@module_schema{}, %{})
-              |> get_required_fields()
-              |> Enum.map(fn x ->
-                [
-                  label(
-                    html: [
-                      x |> to_string(),
-                      input(
-                        name: "#{x |> to_string()}",
-                        value: Map.fetch!(instance, x) |> to_string()
-                      )
-                    ]
-                  )
-                ]
-              end),
-              csrf_input(),
-              button("Submit")
-            ]
-          )
+          main([
+            form(
+              "data-action": get_path(__MODULE__, :update, instance.id),
+              "data-success": StateService.get(entity(), Map.fetch!(instance, :id)),
+              html: [
+                h1("Edit #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
+                form_fields(instance)
+              ]
+            )
+          ])
         ])
       end
 
@@ -204,8 +174,35 @@ defmodule CrudController do
         |> send_resp(204, "")
       end
 
-      def entity(), do: @module_schema.__schema__(:source)
-      def entity_fields(), do: @module_schema.__schema__(:fields)
+      defp entity(), do: @module_schema.__schema__(:source)
+      defp entity_fields(), do: @module_schema.__schema__(:fields)
+
+      defp form_fields(instance) do
+        [
+          @module_schema.changeset(%@module_schema{}, %{})
+          |> get_required_fields()
+          |> Enum.map(fn x ->
+            [
+              label(
+                html: [
+                  x |> to_string(),
+                  input(
+                    name: "#{x |> to_string()}",
+                    value:
+                      instance
+                      |> case do
+                        nil -> nil
+                        _ -> Map.get(instance, x, nil) |> to_string()
+                      end
+                  )
+                ]
+              )
+            ]
+          end),
+          csrf_input(),
+          button("Submit")
+        ]
+      end
     end
   end
 end

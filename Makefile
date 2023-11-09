@@ -24,6 +24,8 @@ setup:
 	@echo $(INFO) "Installing MIX dependencies..."
 	@mix deps.get
 	@echo $(INFO) "Complete. Run 'make start' to start server"
+	@go install github.com/pressly/goose/v3/cmd/goose@latest
+	
 
 compile:
 	@mix do deps.get, deps.compile
@@ -34,18 +36,30 @@ start:
 	MIX_ENV=dev iex -S mix phx.server
 	pkill -P $$
 
-db-update:
+db-ectoup:
 	MIX_ENV=dev mix ecto.migrate
 	MIX_ENV=test mix ecto.migrate
 
-db-downgrade:
+db-ectodown:
 	MIX_ENV=dev mix ecto.rollback --all
 	MIX_ENV=test mix ecto.rollback --all
 
-# Helper for executing a hard reset on the database
+# # Helper for executing a hard reset on the database
 db-rebuild:
 	@make db-downgrade
 	@make db-update
+
+
+include ./config/dev.env
+DBDSN:="host=$(POSTGRES_HOST) user=$(POSTGRES_USER) password=$(POSTGRES_PASSWORD) dbname=$(POSTGRES_DB) port=$(POSTGRES_PORT) sslmode=disable"
+MIGRATE_OPTIONS=-allow-missing -dir="./migrations"
+
+db-update: ## Migrate down on database
+	@go install github.com/pressly/goose/v3/cmd/goose@latest
+	@goose -v $(MIGRATE_OPTIONS) postgres $(DBDSN) up
+
+db-downgrade: ## Migrate up on database
+	@goose -v $(MIGRATE_OPTIONS) postgres $(DBDSN) reset
 
 lint:
 	$(FRONTEND_CONTEXT).lint

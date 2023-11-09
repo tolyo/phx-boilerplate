@@ -2,7 +2,6 @@ frontend.clean:
 	@rm -rf node_modules
 	@rm -rf deps
 	@rm -rf _build
-	@rm package-lock.json
 
 frontend.setup:
 	@echo $(INFO) "Installing NPM dependencies..."

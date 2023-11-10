@@ -1,6 +1,6 @@
 defmodule Web.ProductController do
   use Web, :controller
-  @table "product"
+  @table "products"
   @module_schema Product
   use CrudController
 end

@@ -16,13 +16,13 @@ defmodule CrudController do
               thead(
                 tr(
                   # Add coll for view button
-                  (entity_fields() ++ [""])
+                  (table_columns() ++ [""])
                   |> Enum.map(&th(to_string(&1) |> String.split("_") |> Enum.join(" ")))
                 )
               ),
-              @module_schema.list()
+              DB.list(@table)
               |> Enum.map(fn instance ->
-                entity_fields()
+                table_columns()
                 |> Enum.map(&Map.fetch!(instance, &1))
                 |> Enum.map(&td(&1 |> to_string()))
                 |> case do
@@ -32,7 +32,7 @@ defmodule CrudController do
                         td(
                           menu(
                             a(
-                              onclick: StateService.get(entity(), instance.id),
+                              onclick: StateService.get(@table, instance.id),
                               html: "View"
                             )
                           )
@@ -42,13 +42,13 @@ defmodule CrudController do
                 |> tr()
               end)
               |> case do
-                [] -> p("No #{entity() |> depluralize()} found")
+                [] -> p("No #{@table |> depluralize()} found")
                 x -> x
               end
             ]),
             menu([
               button(
-                onclick: StateService.new(entity()),
+                onclick: StateService.new(@table),
                 html: "Create"
               )
             ])
@@ -176,6 +176,17 @@ defmodule CrudController do
 
       defp entity(), do: @module_schema.__schema__(:source)
       defp entity_fields(), do: @module_schema.__schema__(:fields)
+
+      def table_columns() do
+        DB.query(
+          "SELECT *
+          FROM information_schema.columns
+          WHERE table_name=$1",
+          [@table]
+        )
+        |> Enum.sort_by(&Enum.at(&1, 4))
+        |> Enum.map(&Enum.at(&1, 3))
+      end
 
       defp form_fields(instance) do
         [

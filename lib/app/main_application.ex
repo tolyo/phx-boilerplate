@@ -9,7 +9,14 @@ defmodule MainApplication do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Repo,
+      {Postgrex,
+       [
+         name: :db,
+         hostname: "localhost",
+         database: "db",
+         username: "postgres",
+         password: "postgres"
+       ]},
       # Start the Telemetry supervisor
       Web.Telemetry,
       # Start the PubSub system

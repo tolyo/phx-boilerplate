@@ -11,7 +11,7 @@ defmodule CrudController do
         conn
         |> content(
           main([
-            h1("List #{entity()}"),
+            h1("List #{@table}"),
             table([
               thead(
                 tr(
@@ -32,7 +32,7 @@ defmodule CrudController do
                         td(
                           menu(
                             a(
-                              onclick: StateService.get(@table, instance.id),
+                              onclick: StateService.get(@table, instance["id"]),
                               html: "View"
                             )
                           )
@@ -57,19 +57,18 @@ defmodule CrudController do
       end
 
       def get(conn, %{"id" => id}) do
-        case @module_schema.get(id) do
+        case DB.get(@table, id |> String.to_integer()) do
           nil ->
             conn
-            |> content("#{entity() |> depluralize() |> String.capitalize()} not found")
+            |> content("#{@table |> depluralize() |> String.capitalize()} not found")
 
           instance ->
             conn
             |> content([
               main([
-                h1("#{entity() |> depluralize() |> String.capitalize()} details"),
+                h1("#{@table |> depluralize() |> String.capitalize()} details"),
                 table(
-                  # Entity view
-                  entity_fields()
+                  table_columns()
                   |> Enum.map(fn field ->
                     tr([
                       th("#{field}"),
@@ -80,15 +79,15 @@ defmodule CrudController do
                 menu([
                   # Entity actions
                   a(
-                    onclick: StateService.edit(entity(), Map.fetch!(instance, :id)),
+                    onclick: StateService.edit(@table, Map.fetch!(instance, "id")),
                     html: "Edit"
                   ),
                   form(
                     "data-action": get_path(__MODULE__, :delete),
-                    "data-success": StateService.list(entity()),
+                    "data-success": StateService.list(@table),
                     html: [
                       csrf_input(),
-                      input(hidden: true, name: "id", value: Map.fetch!(instance, :id)),
+                      input(hidden: true, name: "id", value: Map.fetch!(instance, "id")),
                       button(
                         class: "secondary",
                         html: "Delete"
@@ -107,9 +106,9 @@ defmodule CrudController do
           main([
             form(
               "data-action": get_path(__MODULE__, :create),
-              "data-success": StateService.created(entity()),
+              "data-success": StateService.created(@table),
               html: [
-                h1("New #{entity() |> depluralize()}"),
+                h1("New #{@table |> depluralize()}"),
                 form_fields(nil)
               ]
             )
@@ -118,14 +117,14 @@ defmodule CrudController do
       end
 
       def edit(conn, %{"id" => id}) do
-        instance = @module_schema.get(id)
+        instance = DB.get(@table, id |> String.to_integer())
 
         conn
         |> content([
           main([
             form(
-              "data-action": get_path(__MODULE__, :update, instance.id),
-              "data-success": StateService.get(entity(), Map.fetch!(instance, :id)),
+              "data-action": get_path(__MODULE__, :update, instance["id"]),
+              "data-success": StateService.get(@table, Map.fetch!(instance, :id)),
               html: [
                 h1("Edit #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
                 form_fields(instance)
@@ -137,7 +136,9 @@ defmodule CrudController do
 
       ### Form actions ###
       def create(conn, params) do
-        case @module_schema.create(params) do
+        model = Map.drop(params, ["_csrf_token"])
+
+        case DB.create(@table, Map.keys(model), Map.values(model)) do
           {:ok, instance} ->
             conn
             |> put_status(201)
@@ -151,9 +152,9 @@ defmodule CrudController do
       end
 
       def update(conn, %{"id" => id} = params) do
-        instance = @module_schema.get(id)
+        instance = DB.get(@table, id)
 
-        case @module_schema.update(instance, params) do
+        case DB.update(@table, instance, params) do
           {:ok, _} ->
             conn
             |> send_resp(204, "")
@@ -166,27 +167,15 @@ defmodule CrudController do
       end
 
       def delete(conn, %{"id" => id}) do
-        instance = @module_schema.get(id)
+        instance = DB.get(@table, id)
         # TODO: add 404
-        {:ok, _} = Repo.delete(instance)
+        {:ok, _} = DB.delete(instance.id)
 
         conn
         |> send_resp(204, "")
       end
 
-      defp entity(), do: @module_schema.__schema__(:source)
-      defp entity_fields(), do: @module_schema.__schema__(:fields)
-
-      def table_columns() do
-        DB.query(
-          "SELECT *
-          FROM information_schema.columns
-          WHERE table_name=$1",
-          [@table]
-        )
-        |> Enum.sort_by(&Enum.at(&1, 4))
-        |> Enum.map(&Enum.at(&1, 3))
-      end
+      def table_columns(), do: DB.table_columns(@table)
 
       defp form_fields(instance) do
         [

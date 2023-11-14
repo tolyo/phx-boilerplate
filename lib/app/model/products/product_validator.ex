@@ -1,6 +1,5 @@
 defmodule ProductValidator do
   use Ecto.Schema
-  import Ecto.Query, warn: false
   import Ecto.Changeset
 
   embedded_schema do
@@ -11,7 +10,7 @@ defmodule ProductValidator do
   end
 
   @doc false
-  def changeset(attrs \\ %{}) do
+  def validate(attrs \\ %{}) do
     %__MODULE__{}
     |> cast(attrs, [:title, :image_url, :amount, :price])
     |> validate_required([:title, :image_url, :amount, :price])

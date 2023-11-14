@@ -137,15 +137,17 @@ defmodule CrudController do
       ### Form actions ###
       def create(conn, params) do
         model = Map.drop(params, ["_csrf_token"])
-        cmd = @create_command.changeset(model)
+        cmd = @create_command.validate(model)
 
-        case DB.create("products", Map.keys(cmd.changes), Map.values(cmd.changes)) do
-          id ->
+        case cmd.valid? do
+          true ->
+            id = DB.create("products", Map.keys(cmd.changes), Map.values(cmd.changes))
+
             conn
             |> put_status(201)
             |> json(%{id: id})
 
-          {:error, %Ecto.Changeset{} = cmd} ->
+          false ->
             conn
             |> put_status(422)
             |> json(cmd_errors_map(cmd))
@@ -155,14 +157,16 @@ defmodule CrudController do
       def update(conn, %{"id" => id} = params) do
         instance = DB.get(@table, id |> String.to_integer())
         model = Map.drop(params, ["_csrf_token"])
-        cmd = @create_command.changeset(model)
+        cmd = @create_command.validate(model)
 
-        case DB.update(@table, instance["id"], cmd.changes) do
-          id ->
+        case cmd.valid? do
+          true ->
+            DB.update(@table, instance["id"], cmd.changes)
+
             conn
             |> send_resp(204, "")
 
-          {:error, %Ecto.Changeset{} = cmd} ->
+          false ->
             conn
             |> put_status(422)
             |> json(cmd_errors_map(cmd))
@@ -182,7 +186,8 @@ defmodule CrudController do
 
       defp form_fields(instance) do
         [
-          @create_command.changeset(%{})
+          # TODO rethink this format for requred fields
+          @create_command.validate(%{})
           |> get_required_fields()
           |> Enum.map(fn x ->
             [

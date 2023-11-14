@@ -1,6 +1,6 @@
 defmodule Web.ProductController do
   use Web, :controller
   @table "products"
-  @module_schema Product
+  @create_command ProductValidator
   use CrudController
 end

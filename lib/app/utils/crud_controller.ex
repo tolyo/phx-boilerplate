@@ -124,9 +124,9 @@ defmodule CrudController do
           main([
             form(
               "data-action": get_path(__MODULE__, :update, instance["id"]),
-              "data-success": StateService.get(@table, Map.fetch!(instance, :id)),
+              "data-success": StateService.get(@table, instance["id"]),
               html: [
-                h1("Edit #{@module_schema.__schema__(:source) |> StringHelper.depluralize()}"),
+                h1("Edit #{@table |> StringHelper.depluralize()}"),
                 form_fields(instance)
               ]
             )
@@ -137,12 +137,13 @@ defmodule CrudController do
       ### Form actions ###
       def create(conn, params) do
         model = Map.drop(params, ["_csrf_token"])
+        cmd = @create_command.changeset(model)
 
-        case DB.create(@table, Map.keys(model), Map.values(model)) do
-          {:ok, instance} ->
+        case DB.create("products", Map.keys(cmd.changes), Map.values(cmd.changes)) do
+          id ->
             conn
             |> put_status(201)
-            |> json(%{id: instance.id})
+            |> json(%{id: id})
 
           {:error, %Ecto.Changeset{} = cmd} ->
             conn
@@ -152,10 +153,12 @@ defmodule CrudController do
       end
 
       def update(conn, %{"id" => id} = params) do
-        instance = DB.get(@table, id)
+        instance = DB.get(@table, id |> String.to_integer())
+        model = Map.drop(params, ["_csrf_token"])
+        cmd = @create_command.changeset(model)
 
-        case DB.update(@table, instance, params) do
-          {:ok, _} ->
+        case DB.update(@table, instance["id"], cmd.changes) do
+          id ->
             conn
             |> send_resp(204, "")
 
@@ -167,9 +170,9 @@ defmodule CrudController do
       end
 
       def delete(conn, %{"id" => id}) do
-        instance = DB.get(@table, id)
+        instance = DB.get(@table, id |> String.to_integer())
         # TODO: add 404
-        {:ok, _} = DB.delete(instance.id)
+        DB.delete(@table, instance["id"])
 
         conn
         |> send_resp(204, "")
@@ -179,7 +182,7 @@ defmodule CrudController do
 
       defp form_fields(instance) do
         [
-          @module_schema.changeset(%@module_schema{}, %{})
+          @create_command.changeset(%{})
           |> get_required_fields()
           |> Enum.map(fn x ->
             [
@@ -189,8 +192,7 @@ defmodule CrudController do
                   input(
                     name: "#{x |> to_string()}",
                     value:
-                      instance
-                      |> case do
+                      case instance do
                         nil -> nil
                         _ -> Map.get(instance, x, nil) |> to_string()
                       end

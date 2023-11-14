@@ -18,11 +18,21 @@ defmodule DB do
   def get(table_name, id) do
     columns = table_columns(table_name)
 
-    DB.query("SELECT * FROM " <> table_name <> " WHERE id=$1", [id])
+    DB.query("SELECT * FROM " <> table_name <> " WHERE id = $1", [id])
     |> Enum.map(fn row ->
       Enum.zip(columns, row) |> Map.new()
     end)
     |> List.first()
+  end
+
+  @spec delete(String.t(), any) :: any()
+  def delete(table_name, id) do
+    DB.query(
+      "DELETE FROM " <>
+        table_name <>
+        " WHERE id = $1",
+      [id]
+    )
   end
 
   @spec table_columns(any()) :: list()
@@ -30,7 +40,7 @@ defmodule DB do
     DB.query(
       "SELECT *
       FROM information_schema.columns
-      WHERE table_name=$1",
+      WHERE table_name = $1",
       [table]
     )
     |> Enum.sort_by(&Enum.at(&1, 4))
@@ -38,9 +48,23 @@ defmodule DB do
   end
 
   def create(table_name, columns, params) do
-    IO.puts(params)
-    query = "INSERT INTO #{table_name} (#{Enum.join(columns, ", ")}) VALUES ($1, $2, $3)"
-    IO.puts(query)
+    query = """
+      INSERT INTO #{table_name} (#{Enum.join(columns, ", ")})
+      VALUES (#{1..length(params) |> Enum.map(fn x -> "$" <> Integer.to_string(x) end) |> Enum.join(", ")})
+      RETURNING id
+    """
+
     DB.query(query, params)
+  end
+
+  def update(table_name, id, params) do
+    query = """
+      UPDATE #{table_name}
+      SET #{params |> Map.keys() |> Enum.with_index(fn x, i -> "#{x} = $#{i + 1}" end) |> Enum.join(", ")}
+      WHERE id = #{id}
+    """
+
+    IO.puts(query)
+    DB.query(query, Map.values(params))
   end
 end

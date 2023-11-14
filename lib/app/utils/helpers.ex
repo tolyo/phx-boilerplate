@@ -7,6 +7,7 @@ defmodule CrudHelpers do
     |> Enum.filter(fn x ->
       x in required_keys
     end)
+    |> Enum.map(fn x -> to_string(x) end)
   end
 
   def maybe_field(nil, _), do: ""

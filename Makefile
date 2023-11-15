@@ -36,20 +36,6 @@ start:
 	MIX_ENV=dev iex -S mix phx.server
 	pkill -P $$
 
-db-ectoup:
-	MIX_ENV=dev mix ecto.migrate
-	MIX_ENV=test mix ecto.migrate
-
-db-ectodown:
-	MIX_ENV=dev mix ecto.rollback --all
-	MIX_ENV=test mix ecto.rollback --all
-
-# # Helper for executing a hard reset on the database
-db-rebuild:
-	@make db-downgrade
-	@make db-update
-
-
 include ./config/dev.env
 DBDSN:="host=$(POSTGRES_HOST) user=$(POSTGRES_USER) password=$(POSTGRES_PASSWORD) dbname=$(POSTGRES_DB) port=$(POSTGRES_PORT) sslmode=disable"
 MIGRATE_OPTIONS=-allow-missing -dir="./sql"
@@ -60,6 +46,11 @@ db-up: ## Migrate down on database
 
 db-down: ## Migrate up on database
 	@goose -v $(MIGRATE_OPTIONS) postgres $(DBDSN) reset
+
+# # Helper for executing a hard reset on the database
+db-rebuild:
+	@make db-down
+	@make db-up
 
 lint:
 	$(FRONTEND_CONTEXT).lint

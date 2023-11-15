@@ -1,4 +1,4 @@
-defmodule ProductValidator do
+defmodule Web.ProductValidator do
   use Ecto.Schema
   import Ecto.Changeset
 

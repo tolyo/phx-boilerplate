@@ -136,8 +136,7 @@ defmodule CrudController do
 
       ### Form actions ###
       def create(conn, params) do
-        model = Map.drop(params, ["_csrf_token"])
-        cmd = @create_command.validate(model)
+        cmd = @create_validator.validate(params)
 
         case cmd.valid? do
           true ->
@@ -156,8 +155,7 @@ defmodule CrudController do
 
       def update(conn, %{"id" => id} = params) do
         instance = DB.get(@table, id |> String.to_integer())
-        model = Map.drop(params, ["_csrf_token"])
-        cmd = @create_command.validate(model)
+        cmd = @update_validator.validate(params)
 
         case cmd.valid? do
           true ->
@@ -187,7 +185,7 @@ defmodule CrudController do
       defp form_fields(instance) do
         [
           # TODO rethink this format for requred fields
-          @create_command.validate(%{})
+          @create_validator.validate(%{})
           |> get_required_fields()
           |> Enum.map(fn x ->
             [

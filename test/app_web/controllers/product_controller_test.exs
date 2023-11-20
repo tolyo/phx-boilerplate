@@ -6,14 +6,18 @@ defmodule Web.ProductControllerTest do
   @create_attrs %{
     title: "some title",
     image_url: "some image_url",
-    price: "100"
+    price: "100",
+    amount: "10"
   }
+
   @update_attrs %{
     title: "some updated title",
     image_url: "some updated image_url",
-    price: "200"
+    price: "200",
+    amount: "10"
   }
-  @invalid_attrs %{title: nil, image_url: nil, price: nil}
+
+  @invalid_attrs %{title: nil, image_url: nil, price: nil, amount: nil}
 
   describe "index" do
     test "lists all products", %{conn: conn} do
@@ -64,9 +68,9 @@ defmodule Web.ProductControllerTest do
   describe "edit product" do
     setup [:create_product]
 
-    test "renders form for editing chosen product", %{conn: conn, product: product} do
+    test "renders form for editing chosen product", %{conn: conn, id: id} do
       # when
-      conn = get(conn, "/_products/edit/#{product.id}")
+      conn = get(conn, "/_products/edit/#{id}")
 
       # then
       assert html_response(conn, 200) =~ "Edit"
@@ -76,23 +80,23 @@ defmodule Web.ProductControllerTest do
   describe "update product" do
     setup [:create_product]
 
-    test "204 when data is valid", %{conn: conn, product: product} do
+    test "204 when data is valid", %{conn: conn, id: id} do
       # when
-      conn = post(conn, "/products/#{product.id}", @update_attrs)
+      conn = post(conn, "/products/#{id}", @update_attrs)
 
       # then
       assert response(conn, 204)
 
       # when
-      conn = get(conn, "/_products/#{product.id}")
+      conn = get(conn, "/_products/#{id}")
 
       # then
       assert html_response(conn, 200) =~ "some updated title"
     end
 
-    test "renders errors when data is invalid", %{conn: conn, product: product} do
+    test "renders errors when data is invalid", %{conn: conn, id: id} do
       # when
-      conn = post(conn, "/products/#{product.id}", @invalid_attrs)
+      conn = post(conn, "/products/#{id}", @invalid_attrs)
 
       # then
       assert json_response(conn, 422)
@@ -102,10 +106,10 @@ defmodule Web.ProductControllerTest do
   describe "delete product" do
     setup [:create_product]
 
-    test "deletes chosen product", %{conn: conn, product: product} do
+    test "deletes chosen product", %{conn: conn, id: id} do
       # when
-      conn = post(conn, "/products/delete/", %{id: product.id})
-      conn = get(conn, "/_products/#{product.id}")
+      conn = post(conn, "/products/delete/", %{id: "#{id}"})
+      conn = get(conn, "/_products/#{id}")
 
       # then
       # TODO this should return 404
@@ -114,7 +118,7 @@ defmodule Web.ProductControllerTest do
   end
 
   defp create_product(_) do
-    product = product_fixture()
-    %{product: product}
+    id = product_fixture()
+    %{id: id}
   end
 end

@@ -47,14 +47,15 @@ defmodule DB do
     |> Enum.map(&Enum.at(&1, 3))
   end
 
-  def create(table_name, columns, params) do
+  def create(table_name, params) do
     query = """
-      INSERT INTO #{table_name} (#{Enum.join(columns, ", ")})
-      VALUES (#{1..length(params) |> Enum.map(fn x -> "$" <> Integer.to_string(x) end) |> Enum.join(", ")})
+      INSERT INTO #{table_name} (#{Enum.join(Map.keys(params), ", ")})
+      VALUES (#{1..length(Map.values(params)) |> Enum.map(fn x -> "$" <> Integer.to_string(x) end) |> Enum.join(", ")})
       RETURNING id
     """
 
-    DB.query(query, params)
+    [[x]] = DB.query(query, Map.values(params))
+    x
   end
 
   def update(table_name, id, params) do

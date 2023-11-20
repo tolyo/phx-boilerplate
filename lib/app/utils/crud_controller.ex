@@ -140,7 +140,7 @@ defmodule CrudController do
 
         case cmd.valid? do
           true ->
-            id = DB.create("products", Map.keys(cmd.changes), Map.values(cmd.changes))
+            id = DB.create("products", cmd.changes)
 
             conn
             |> put_status(201)

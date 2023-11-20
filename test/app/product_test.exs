@@ -8,10 +8,10 @@ defmodule ProductTest do
 
     test "list/0 returns all" do
       # when
-      instance = product_fixture()
+      instance_id = product_fixture()
 
       # then
-      assert DB.list("products") == [instance]
+      assert DB.list("products") |> Enum.map(fn x -> x["id"] end) == [instance_id]
     end
 
     #   test "get/1 finds by id" do

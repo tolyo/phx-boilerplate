@@ -3,20 +3,22 @@ defmodule ProductFixtures do
   This module defines test helpers for creating
   entities via the `Product` context.
   """
+  alias Web.ProductValidator
 
   @doc """
   Generate a product.
   """
   def product_fixture(attrs \\ %{}) do
-    {:ok, product} =
+    changeset =
       attrs
       |> Enum.into(%{
         title: "some title",
         image_url: "some image_url",
-        price: "120.5"
+        price: "120.5",
+        amount: "1"
       })
-      |> Product.create()
+      |> ProductValidator.validate()
 
-    product
+    DB.create("products", changeset.changes)
   end
 end

@@ -26,7 +26,6 @@ setup:
 	@echo $(INFO) "Complete. Run 'make start' to start server"
 	@go install github.com/pressly/goose/v3/cmd/goose@latest
 	
-
 compile:
 	@mix do deps.get, deps.compile
 

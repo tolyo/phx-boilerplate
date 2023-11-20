@@ -26,7 +26,8 @@ defmodule DataCase do
   end
 
   setup do
-    System.cmd("make", ["db-rebuild"])
+    System.cmd("make", ["db-up"])
+    on_exit(fn -> System.cmd("make", ["db-down"]) end)
     :ok
   end
 end

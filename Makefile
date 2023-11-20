@@ -23,8 +23,8 @@ setup:
 	$(FRONTEND_CONTEXT).setup
 	@echo $(INFO) "Installing MIX dependencies..."
 	@mix deps.get
-	@echo $(INFO) "Complete. Run 'make start' to start server"
 	@go install github.com/pressly/goose/v3/cmd/goose@latest
+	@echo $(INFO) "Complete. Run 'make start' to start server"
 	
 compile:
 	@mix do deps.get, deps.compile

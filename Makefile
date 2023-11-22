@@ -1,10 +1,9 @@
 # Frontend management make
-include lib/web/Makefile
-
 default: help
 
 # Frontend make file context
-FRONTEND_CONTEXT = make -C lib/web frontend
+FRONTEND_CONTEXT = make -f lib/web/frontend.mk
+SERVER_CONTEXT = make -f server.mk
 
 INFO = "\033[32m[INFO]\033[0m"
 
@@ -14,25 +13,24 @@ help:
 
 clean:
 	@echo $(INFO) "Cleaning project..."
-	$(FRONTEND_CONTEXT).clean
-	@rm -rf _build
-	@rm mix.lock
+	$(FRONTEND_CONTEXT) clean
+	$(c) clean
 	@echo $(INFO) "Complete. Run 'make setup' to install dependencies"
 
 setup:
-	$(FRONTEND_CONTEXT).setup
+	$(FRONTEND_CONTEXT) setup
 	@echo $(INFO) "Installing MIX dependencies..."
-	@mix deps.get
-	@go install github.com/pressly/goose/v3/cmd/goose@latest
+	$(SERVER_CONTEXT) setup
 	@echo $(INFO) "Complete. Run 'make start' to start server"
 	
 compile:
-	@mix do deps.get, deps.compile
+	$(SERVER_CONTEXT) compile
 
 # Helper for running dev mode
 start:
-	$(FRONTEND_CONTEXT).start &
-	MIX_ENV=dev iex -S mix phx.server
+	@make db-up
+	$(FRONTEND_CONTEXT) start &
+	$(SERVER_CONTEXT) start
 	pkill -P $$
 
 include ./config/dev.env
@@ -52,24 +50,21 @@ db-rebuild:
 	@make db-up
 
 lint:
-	$(FRONTEND_CONTEXT).lint
-	@echo $(INFO) "Formatting Elixir"
-	@mix format
+	$(FRONTEND_CONTEXT) lint
+	$(SERVER_CONTEXT) lint
 	@echo $(INFO) "Complete"
 
 check:
-	$(FRONTEND_CONTEXT).check
-	@echo $(INFO) "Typechecking Elixir"
-	@mix compile
-# TODO: @mix dialyzer --format dialyzer
+	$(FRONTEND_CONTEXT) check
+	$(SERVER_CONTEXT) check
 
 .PHONY: test
 test:
 	MIX_ENV=test mix test test/ lib/
 
 functional-test:
-	@MIX_ENV=test mix phx.server &
-	$(FRONTEND_CONTEXT).test
+	$(SERVER_CONTEXT) functional-test &
+	$(FRONTEND_CONTEXT) test
 	@kill -9 $$(lsof -t -i :4000) # todo: remove port
 
 quality:

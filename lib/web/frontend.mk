@@ -1,27 +1,27 @@
-frontend.clean:
+clean:
 	@rm -rf node_modules
 	@rm -rf deps
 	@rm -rf _build
 
-frontend.setup:
+setup:
 	@echo $(INFO) "Installing NPM dependencies..."
 	@npm i web
 	@npx playwright install
 
-frontend.start:
+start:
 	@echo $(INFO) "Starting browsersync ..."
 	@npm run browsersync
 
-frontend.lint:
+lint:
 	@echo $(INFO) "Formatting Js/CSS"
 	@npm run format
 	@echo $(INFO) "Linting Js"
 	@npm run lint
 
-frontend.check:
+check:
 	@echo $(INFO) "Typechecking Js"
 	@npm run typecheck
 
-frontend.test:
+test:
 	@echo $(INFO) "Playwright test JS"
 	@npm run playwright

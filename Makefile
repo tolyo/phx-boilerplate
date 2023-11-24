@@ -1,8 +1,7 @@
-# Frontend management make
 default: help
 
 # Frontend make file context
-FRONTEND_CONTEXT = make -f lib/web/frontend.mk
+FRONTEND_CONTEXT = make -C lib/web -f frontend.mk
 SERVER_CONTEXT = make -f server.mk
 
 INFO = "\033[32m[INFO]\033[0m"

@@ -14,7 +14,7 @@ help:
 clean:
 	@echo $(INFO) "Cleaning project..."
 	$(FRONTEND_CONTEXT) clean
-	$(c) clean
+	$(SERVER_CONTEXT) clean
 	@echo $(INFO) "Complete. Run 'make setup' to install dependencies"
 
 setup:

@@ -19,7 +19,7 @@ defmodule Web do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Web
+      use Phoenix.Controller, namespace: Web, layouts: [html: {Web.LayoutView, :main_layout}]
 
       import Plug.Conn
       import Web.Gettext

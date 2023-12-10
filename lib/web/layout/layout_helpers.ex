@@ -9,6 +9,7 @@ defmodule LayoutHelper do
   @spec get_libs :: [String.t()]
   def get_libs(), do: @libs
 
+  @spec header() :: [String.t()]
   def header do
     [
       meta(charset: "utf-8"),
@@ -46,6 +47,7 @@ defmodule LayoutHelper do
     |> head()
   end
 
+  @spec footer() :: [String.t()]
   def footer do
     [
       script(

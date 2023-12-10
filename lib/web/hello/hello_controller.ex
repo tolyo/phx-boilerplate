@@ -1,6 +1,6 @@
 defmodule Web.HelloController do
   use Web, :controller
-  plug :put_layout, "main_layout"
+  plug :put_layout, html: {Web.LayoutView, :main_layout}
 
   @moduledoc """
   This example showcases the use of Nitroux tags with standard .eex templates.

@@ -1,6 +1,5 @@
 defmodule LayoutHelper do
-  import Nitroux
-  import Web.Router.Helpers
+  use Nitroux.HtmlTags
 
   @moduledoc """
     Helper for loading list of CDN libs
@@ -23,7 +22,7 @@ defmodule LayoutHelper do
       ),
       link(
         rel: "shortcut icon",
-        href: Web.Endpoint |> static_path("/lib/web/favicon.ico"),
+        href: Web.Endpoint |> Web.Router.Helpers.static_path("/lib/web/favicon.ico"),
         type: "image/x-icon"
       ),
       get_libs()
@@ -41,7 +40,7 @@ defmodule LayoutHelper do
       ### main CSS bundle
       link(
         rel: "stylesheet",
-        href: Web.Endpoint |> static_path("/lib/web/app.css")
+        href: Web.Endpoint |> Web.Router.Helpers.static_path("/lib/web/app.css")
       )
     ]
     |> head()
@@ -49,7 +48,10 @@ defmodule LayoutHelper do
 
   def footer do
     [
-      script(type: "module", src: Web.Endpoint |> static_path("/lib/web/app.js")),
+      script(
+        type: "module",
+        src: Web.Endpoint |> Web.Router.Helpers.static_path("/lib/web/app.js")
+      ),
       script(
         async: true,
         src: "http://localhost:3000/browser-sync/browser-sync-client.js?v=2.27.10"

@@ -38,7 +38,7 @@ defmodule MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_view, "2.0.2"},
-      {:nitroux, "~> 0.4.1"},
+      {:nitroux, "~> 0.4.3"},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},

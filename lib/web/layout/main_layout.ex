@@ -5,9 +5,10 @@ defmodule MainLayout do
   @doc """
   Optional wrapper helper. Default to content/2 as it allows to use layout plugs
   """
+  @spec wrap(String.t()) :: String.t()
   def wrap(content) do
     "<!DOCTYPE html>" <>
-      html(
+      Nitroux.html(
         lang: Gettext.get_locale(Web.Gettext),
         translate: "no",
         html: [
@@ -18,7 +19,7 @@ defmodule MainLayout do
       )
   end
 
-  @spec content(any, any) :: none
+  @spec content(Plug.Conn.t(), any) :: Plug.Conn.t()
   def content(conn, data) do
     conn
     |> put_view(Web.LayoutView)
@@ -31,6 +32,7 @@ defmodule MainLayout do
     )
   end
 
+  @spec header() :: String.t()
   def header() do
     header(nav(a(href: "/", html: strong("PHX"))))
   end

@@ -19,7 +19,7 @@ lint:
 check: 
 	@echo $(INFO) "Typechecking Elixir"
 	@mix compile
-# TODO: @mix dialyzer --format dialyzer
+	@mix dialyzer --format dialyzer
 
 function-test:
 	@MIX_ENV=test mix phx.server

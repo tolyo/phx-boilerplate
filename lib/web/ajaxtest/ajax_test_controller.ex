@@ -1,7 +1,8 @@
 defmodule Web.AjaxtestController do
   use Web, :controller
-  plug :put_layout, "main_layout.html"
+  plug :put_layout, {Web.LayoutView, "main_layout.html"}
 
+  @spec index(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def index(conn, _),
     do:
       conn

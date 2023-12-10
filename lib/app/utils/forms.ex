@@ -7,7 +7,7 @@ defmodule Forms do
         button("Submit")
     ])
   """
-  @spec csrf_input() :: Nitroux.Types.tag()
+  @spec csrf_input() :: Nitroux.Utils.tag()
   def csrf_input() do
     Nitroux.input(
       type: "hidden",

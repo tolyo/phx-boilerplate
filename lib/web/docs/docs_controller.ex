@@ -1,6 +1,6 @@
 defmodule Web.DocsController do
   use Web, :controller
-  plug :put_layout, "main_layout.html"
+  plug :put_layout, {Web.LayoutView, "main_layout.html"}
 
   def index(conn, _),
     do:

@@ -30,7 +30,6 @@ app-*.tar
 
 # Dialyzer server output
 .elixis_ls
-_build
 
 # In case you use Node.js/npm, you want to ignore these.
 npm-debug.log

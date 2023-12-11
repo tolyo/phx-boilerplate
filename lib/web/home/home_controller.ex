@@ -1,16 +1,17 @@
 defmodule Web.HomeController do
   use Web, :controller
   import Components
-  plug :put_layout, html: {Web.LayoutView, :main_layout}
 
   @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
   def index(conn, _params) do
     conn
+    |> put_layout(html: {Web.LayoutView, :main_layout})
     |> MainLayout.content([
       Nitroux.Utils.tag("ui-view", id: "root")
     ])
   end
 
+  @spec home(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def home(conn, _params) do
     conn
     |> content([
@@ -29,6 +30,7 @@ defmodule Web.HomeController do
     ])
   end
 
+  @spec subview(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def subview(conn, _) do
     conn
     |> content([
@@ -36,6 +38,7 @@ defmodule Web.HomeController do
     ])
   end
 
+  @spec subview2(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def subview2(conn, _) do
     conn
     |> content([

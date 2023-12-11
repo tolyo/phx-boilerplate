@@ -1,27 +1,27 @@
 defmodule Web.AjaxtestController do
   use Web, :controller
-  plug :put_layout, html: {Web.LayoutView, :main_layout}
 
   @spec index(Plug.Conn.t(), any()) :: Plug.Conn.t()
-  def index(conn, _),
-    do:
-      conn
-      |> MainLayout.content(
-        main([
-          form(
-            "data-action": get_path(__MODULE__, :calculate),
-            "data-update": "#myDiv",
-            html: [
-              h4("Calculator"),
-              label(input(name: "value1", type: "integer", value: 0)),
-              label(input(name: "value2", type: "integer", value: 0)),
-              Forms.csrf_input(),
-              button("Add")
-            ]
-          ),
-          div(id: "myDiv")
-        ])
-      )
+  def index(conn, _) do
+    conn
+    |> put_layout(html: {Web.LayoutView, :main_layout})
+    |> MainLayout.content(
+      main([
+        form(
+          "data-action": get_path(__MODULE__, :calculate),
+          "data-update": "#myDiv",
+          html: [
+            h4("Calculator"),
+            label(input(name: "value1", type: "integer", value: 0)),
+            label(input(name: "value2", type: "integer", value: 0)),
+            Forms.csrf_input(),
+            button("Add")
+          ]
+        ),
+        div(id: "myDiv")
+      ])
+    )
+  end
 
   def calculate(
         conn,

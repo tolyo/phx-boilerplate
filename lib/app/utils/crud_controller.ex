@@ -8,44 +8,50 @@ defmodule CrudController do
     quote do
       ### Views ###
       def list(conn, _) do
+        items = DB.list(@table)
+
         conn
         |> content(
           main([
             h1("List #{@table}"),
-            table([
-              thead(
-                tr(
-                  # Add coll for view button
-                  (table_columns() ++ [""])
-                  |> Enum.map(&th(to_string(&1) |> String.split("_") |> Enum.join(" ")))
-                )
-              ),
-              DB.list(@table)
-              |> Enum.map(fn instance ->
-                table_columns()
-                |> Enum.map(&Map.fetch!(instance, &1))
-                |> Enum.map(&td(&1 |> to_string()))
-                |> case do
-                  v ->
-                    v ++
-                      [
-                        td(
-                          menu(
-                            a(
-                              onclick: StateService.get(@table, instance["id"]),
-                              html: "View"
-                            )
-                          )
-                        )
-                      ]
-                end
-                |> tr()
-              end)
-              |> case do
-                [] -> p("No #{@table |> depluralize()} found")
-                x -> x
-              end
-            ]),
+            case items do
+              [] ->
+                p("No #{@table |> depluralize()} found")
+
+              _ ->
+                table([
+                  thead(
+                    tr(
+                      # Add coll for view button
+                      (table_columns() ++ [""])
+                      |> Enum.map(&th(to_string(&1) |> String.split("_") |> Enum.join(" ")))
+                    )
+                  ),
+                  tbody(
+                    items
+                    |> Enum.map(fn instance ->
+                      table_columns()
+                      |> Enum.map(&Map.fetch!(instance, &1))
+                      |> Enum.map(&td(&1 |> to_string()))
+                      |> case do
+                        v ->
+                          v ++
+                            [
+                              td(
+                                menu(
+                                  a(
+                                    onclick: StateService.get(@table, instance["id"]),
+                                    html: "View"
+                                  )
+                                )
+                              )
+                            ]
+                      end
+                      |> tr()
+                    end)
+                  )
+                ])
+            end,
             menu([
               button(
                 onclick: StateService.new(@table),

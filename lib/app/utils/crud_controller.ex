@@ -16,7 +16,7 @@ defmodule CrudController do
             h1("List #{@table}"),
             case items do
               [] ->
-                p("No #{@table |> depluralize()} found")
+                p("No #{@table} found")
 
               _ ->
                 table([

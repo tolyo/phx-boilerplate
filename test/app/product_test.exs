@@ -4,7 +4,7 @@ defmodule ProductTest do
   describe "products" do
     import ProductFixtures
 
-    @invalid_attrs %{title: nil, image_url: nil, price: nil}
+    # @invalid_attrs %{title: nil, image_url: nil, price: nil}
 
     test "list/0 returns all" do
       # when

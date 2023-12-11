@@ -26,7 +26,7 @@ defmodule Web.ProductControllerTest do
 
       # then
       assert html_response(conn, 200) =~ "List products"
-      assert html_response(conn, 200) =~ "table"
+      assert html_response(conn, 200) =~ "No products found"
     end
   end
 

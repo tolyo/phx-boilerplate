@@ -1,0 +1,29 @@
+/**
+
+    This theme generated via https://uicolors.app/.
+    Base color: #0a6fbd
+    Modify as necessary
+
+**/
+
+:root {
+  font-family: "Inter", sans-serif;
+
+  /* Swap this out */
+  --theme-50: #f1f8fe;
+  --theme-100: #e1effd;
+  --theme-200: #bddffa;
+  --theme-300: #82c6f7;
+  --theme-400: #40a9f0;
+  --theme-500: #178fe0;
+  --theme-600: #0a6fbd;
+  --theme-700: #09599b;
+  --theme-800: #0c4c80;
+  --theme-900: #10406a;
+  --theme-950: #0b2846;
+  /* End Swap this out */
+
+  /** Example Pico mods **/
+  --primary: var(--theme-500) !important;
+  --primary-hover: var(--theme-600) !important;
+}

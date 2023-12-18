@@ -1,0 +1,11 @@
+body {
+  & nav:first-of-type {
+    border-bottom: 1px solid var(--muted-border-color);
+    & ul {
+      margin: 0 auto;
+      & a {
+        color: inherit;
+      }
+    }
+  }
+}

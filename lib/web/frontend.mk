@@ -1,7 +1,5 @@
 clean:
 	@rm -rf node_modules
-	@rm -rf deps
-	@rm -rf _build
 
 setup:
 	@echo $(INFO) "Installing NPM dependencies..."

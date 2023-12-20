@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "browsersync": "browser-sync start --files ./",
+    "browsersync": "browser-sync start --files ./ --ignore './node_modules' --no-inject-changes",
     "typecheck": "./node_modules/.bin/tsc",
     "lint": "./node_modules/.bin/eslint ./ --fix",
     "format": "./node_modules/.bin/prettier ./ --write",

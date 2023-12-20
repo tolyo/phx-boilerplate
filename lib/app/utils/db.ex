@@ -15,6 +15,7 @@ defmodule DB do
     end)
   end
 
+  @spec get(binary(), any()) :: map()
   def get(table_name, id) do
     columns = table_columns(table_name)
 
@@ -47,6 +48,7 @@ defmodule DB do
     |> Enum.map(&Enum.at(&1, 3))
   end
 
+  @spec create(String.t(), map()) :: String.t() | number()
   def create(table_name, params) do
     query = """
       INSERT INTO #{table_name} (#{Enum.join(Map.keys(params), ", ")})

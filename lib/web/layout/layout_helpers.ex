@@ -29,13 +29,27 @@ defmodule LayoutHelper do
       get_libs()
       |> Enum.map(fn x ->
         case x do
-          %{} -> script(type: "module", src: Map.keys(x) |> List.first())
-          _ -> script(src: x)
+          %{} -> script(type: "module", defer: nil, src: Map.keys(x) |> List.first())
+          _ -> script(defer: nil, src: x)
         end
       end),
+      # TODO figure out how to generate this dynamically
       script("""
           window.app = {};
-          let EventTarget = EventTargetShim.EventTarget;
+          window.routes = [
+            {
+              name: "home",
+              url: "/",
+              serverPath: "/_home",
+            },
+
+            {
+              name: "home.subview",
+              url: "/",
+              serverPath: "/_subview",
+            }
+          ];
+          window.crudRoutes = [{name: "products"}];
       """),
 
       ### main CSS bundle

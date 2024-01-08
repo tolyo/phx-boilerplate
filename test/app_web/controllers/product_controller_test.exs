@@ -70,7 +70,7 @@ defmodule Web.ProductControllerTest do
 
     test "renders form for editing chosen product", %{conn: conn, id: id} do
       # when
-      conn = get(conn, "/_products/edit/#{id}")
+      conn = get(conn, "/_products/#{id}")
 
       # then
       assert html_response(conn, 200) =~ "Edit"
@@ -108,7 +108,7 @@ defmodule Web.ProductControllerTest do
 
     test "deletes chosen product", %{conn: conn, id: id} do
       # when
-      conn = post(conn, "/products/delete/", %{id: "#{id}"})
+      conn = delete(conn, "/products/#{id}")
       conn = get(conn, "/_products/#{id}")
 
       # then

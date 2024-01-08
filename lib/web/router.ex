@@ -34,10 +34,10 @@ defmodule Web.Router do
     get "/_products", ProductController, :list
     get "/_products/new", ProductController, :new
     get "/_products/:id", ProductController, :get
-    get "/_products/edit/:id", ProductController, :edit
-    post "/products/delete/", ProductController, :delete
     post "/products", ProductController, :create
     post "/products/:id", ProductController, :update
+    put "/products/:id", ProductController, :edit
+    delete "/products/:id", ProductController, :delete
 
     get "/*path", HomeController, :index
   end

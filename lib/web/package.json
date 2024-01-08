@@ -1,15 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "browsersync": "browser-sync start --files ./ --ignore './node_modules' --no-inject-changes",
+    "browsersync": "browser-sync start --files './' --ignore './node_modules' --no-inject-changes --reload-delay 1000",
     "typecheck": "./node_modules/.bin/tsc",
     "lint": "./node_modules/.bin/eslint ./ --fix",
     "format": "./node_modules/.bin/prettier ./ --write",
     "playwright": "./node_modules/.bin/playwright test"
   },
-  "dependencies": {
-    "modern-normalize": "^2.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@playwright/test": "^1.38.1",
     "@types/alpinejs": "^3.13.1",

@@ -1,15 +1,42 @@
 #home {
   background-color: inherit !important;
-  margin-top: 10rem;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
 
-  & section {
+  & main {
+    width: 100%;
+    text-align: center;
+    padding-top: 10rem;
+
+    & section {
+      width: 8rem;
+      align-items: flex-end;
+      display: flex;
+      flex-direction: row;
+      margin: auto;
+      justify-content: space-between;
+    }
+  }
+
+  & aside {
+    background-color: var(--gray-200);
     padding-top: var(--scale-2);
-    width: 8rem;
-    align-items: flex-end;
-    display: flex;
-    flex-direction: row;
-    margin: auto;
-    justify-content: space-between;
+    padding-left: var(--scale-1);
+    padding-right: var(--scale-1);
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 16rem;
+
+    & h6 {
+      padding-bottom: var(--scale-0);
+      font-weight: bold;
+    }
+
+    & li {
+      line-height: var(--scale-2);
+    }
   }
 }

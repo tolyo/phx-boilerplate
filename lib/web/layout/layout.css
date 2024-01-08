@@ -1,5 +1,4 @@
 ui-view {
-  margin-top: var(--scale-0);
   display: flex;
   flex-direction: column;
 }

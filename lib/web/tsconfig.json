@@ -11,7 +11,7 @@
     "declaration": false,
     "importHelpers": true,
     "incremental": true,
-    "typeRoots": ["/", "node_modules/@types"]
+    "typeRoots": ["/global.d.ts", "node_modules/@types"]
   },
   "include": ["./**/*.js", "./**/*.ts"],
   "exclude": []

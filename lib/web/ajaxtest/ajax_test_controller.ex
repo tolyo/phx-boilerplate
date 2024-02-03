@@ -24,6 +24,7 @@ defmodule Web.AjaxtestController do
     )
   end
 
+  @spec calculate(Plug.Conn.t(), map()) :: Plug.Conn.t()
   def calculate(
         conn,
         %{

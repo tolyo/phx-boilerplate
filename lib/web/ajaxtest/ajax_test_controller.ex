@@ -10,6 +10,7 @@ defmodule Web.AjaxtestController do
         form(
           "data-action": get_path(__MODULE__, :calculate),
           "data-update": "#myDiv",
+          "data-onchange": true,
           html: [
             h4("Calculator"),
             label(input(name: "value1", type: "integer", value: 0)),

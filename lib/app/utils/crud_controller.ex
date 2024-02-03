@@ -1,5 +1,5 @@
 defmodule CrudController do
-  defmacro __using__(_opts) do
+  defmacro __using__(_) do
     import CrudHelpers
     import Validation
     import StringHelper

@@ -9,7 +9,6 @@
     "target": "ES5",
     "sourceMap": false,
     "declaration": false,
-    "importHelpers": true,
     "incremental": true,
     "typeRoots": ["/global.d.ts", "node_modules/@types"]
   },

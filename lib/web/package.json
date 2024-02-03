@@ -8,7 +8,7 @@
     "playwright": "./node_modules/.bin/playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.38.1",
+    "@playwright/test": "^1.40.1",
     "@types/alpinejs": "^3.13.1",
     "@types/node": "^20.6.0",
     "@types/phoenix": "latest",

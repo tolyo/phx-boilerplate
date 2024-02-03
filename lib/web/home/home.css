@@ -13,7 +13,7 @@
       align-items: flex-end;
       display: flex;
       flex-direction: row;
-      margin: auto;
+      margin: 0.5rem auto;
       justify-content: space-between;
     }
   }

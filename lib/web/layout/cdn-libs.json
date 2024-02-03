@@ -2,5 +2,6 @@
   "https://cdn.jsdelivr.net/npm/phoenix@1.7.7/priv/static/phoenix.min.js",
   "https://unpkg.com/event-target-shim@6.0.2/umd.js",
   "https://unpkg.com/alpinejs@3.13.1/dist/cdn.min.js",
-  "https://cdn.jsdelivr.net/npm/@uirouter/core@6.1.0/_bundles/ui-router-core.min.js"
+  "https://cdn.jsdelivr.net/npm/@uirouter/core@6.1.0/_bundles/ui-router-core.min.js",
+  "https://cdn.jsdelivr.net/npm/server-page-component/dist/server-page.umd.min.js"
 ]

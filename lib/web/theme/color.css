@@ -5,20 +5,6 @@
 */
 
 :root {
-  /* Swap this out */
-  --theme-50: #f1f8fe;
-  --theme-100: #e1effd;
-  --theme-200: #bddffa;
-  --theme-300: #82c6f7;
-  --theme-400: #40a9f0;
-  --theme-500: #178fe0;
-  --theme-600: #0a6fbd;
-  --theme-700: #09599b;
-  --theme-800: #0c4c80;
-  --theme-900: #10406a;
-  --theme-950: #0b2846;
-  /* End Swap this out */
-
   /* Utility colors from Tailwind. Use reds for alerts, yellows for warnings,
     greens for success and theme for primary */
   --gray-100: #f5f5f5;

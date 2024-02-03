@@ -34,6 +34,7 @@
 /* Layout submodule */
 @import "./layout/layout.css";
 @import "./layout/navigation-header.css";
+@import "./layout/theme.css";
 
 /* App submodules */
 @import "./home/home.css";

@@ -1,4 +1,5 @@
 defmodule DB do
+  @spec query(String.t(), list()) :: Postgrex.Result.t() | Exception.t()
   def query(statement, params \\ []) do
     case Postgrex.query(:db, statement, params, []) do
       {:ok, res} -> res.rows
@@ -6,6 +7,7 @@ defmodule DB do
     end
   end
 
+  @spec list(binary()) :: list()
   def list(table_name) do
     columns = table_columns(table_name)
 

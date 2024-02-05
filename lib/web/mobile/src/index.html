@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Awesome Capacitor App</title>
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <script type="module" src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
+    <script nomodule src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framework7@8.3.1/framework7-bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/framework7@8.3.1/framework7-bundle.min.css" rel="stylesheet">
+  
+
+    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta name="theme-color" content="#31d53d" />
+  </head>
+  <body>
+    
+    <!-- Top Navbar -->
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner">
+        <div class="title">Awesome App</div>
+      </div>
+    </div>
+
+    <!-- Bottom Toolbar -->
+    <div class="toolbar toolbar-bottom">
+      <div class="toolbar-inner">
+        <!-- Toolbar links -->
+        <a href="#" class="link">Link 1</a>
+        <a href="#" class="link">Link 2</a>
+      </div>
+    </div>
+
+    <!-- Scrollable page content -->
+    <div class="page-content">
+      <p>Page content goes here</p>
+      <button class="button" onclick="app.dialog.alert('Hello!')">Alert</button>
+      <!-- Link to another page -->
+      <a href="/about/">About app</a>
+    </div>
+
+    <script src="./js/capacitor-welcome.js" type="module"></script>
+  </body>
+</html>

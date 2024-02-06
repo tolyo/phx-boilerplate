@@ -2,6 +2,7 @@
 <html lang="<%= Gettext.get_locale(Web.Gettext) %>">
     <%= raw LayoutHelper.header() %>
     <body>
+        <%= raw MainLayout.header() %>
         <%= @inner_content %>
     </body>
     <%= raw LayoutHelper.footer() %>

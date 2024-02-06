@@ -24,7 +24,8 @@ defmodule Web.HomeController do
             partial(get_path(__MODULE__, :subview), "test"),
             section([
               a(href: get_path(Web.DemoController, :index), html: "Demo"),
-              a(href: get_path(Web.DocsController, :index), html: "Docs")
+              a(href: get_path(Web.DocsController, :index), html: "Docs"),
+              a(href: get_path(Web.MobileController, :index), html: "Mobile")
             ])
           ])
         ]

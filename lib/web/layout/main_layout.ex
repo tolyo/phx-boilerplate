@@ -26,7 +26,6 @@ defmodule MainLayout do
     |> render(
       "app.html",
       content: [
-        header(),
         data
       ]
     )

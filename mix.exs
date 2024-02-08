@@ -38,14 +38,15 @@ defmodule MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_view, "2.0.2"},
-      {:nitroux, "~> 0.4.3"},
+      {:nitroux, "~> 0.4.4"},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:dialyxir, "~> 1.4.2", only: [:dev]}
+      {:dialyxir, "~> 1.4.2", only: [:dev]},
+      {:cors_plug, "~> 3.0"}
     ]
   end
 

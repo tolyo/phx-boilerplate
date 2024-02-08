@@ -9,7 +9,13 @@ defmodule Web.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+
+  end
+
+  scope "/mobile", Web do
+    pipe_through :api
+    get "/_home", MobileController, :home
+    options "/_home", MobileController, :options
   end
 
   scope "/", Web do
@@ -42,6 +48,8 @@ defmodule Web.Router do
 
     get "/*path", HomeController, :index
   end
+
+
 
   # Other scopes may use custom stacks.
   # scope "/api", Web do

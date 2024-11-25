@@ -1,6 +1,5 @@
 defmodule Web.HomeController do
   use Web, :controller
-  import Components
 
   @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
   def index(conn, _params) do
@@ -21,11 +20,9 @@ defmodule Web.HomeController do
           main([
             h1("Phoenix Framework Boilerplate"),
             div("A starter template"),
-            partial(get_path(__MODULE__, :subview), "test"),
+            div("ng-include='#{get_path(__MODULE__, :subview)}'"),
             section([
               a(href: get_path(Web.DemoController, :index), html: "Demo"),
-              a(href: get_path(Web.DocsController, :index), html: "Docs"),
-              a(href: get_path(Web.MobileController, :index), html: "Mobile")
             ])
           ])
         ]

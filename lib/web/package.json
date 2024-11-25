@@ -8,26 +8,18 @@
     "playwright": "./node_modules/.bin/playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
-    "@types/alpinejs": "^3.13.1",
-    "@types/node": "^20.6.0",
+    "@types/node": "^22.9.3",
     "@types/phoenix": "latest",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@uirouter/core": "^6.1.0",
-    "alpinejs": "^3.13.0",
-    "browser-sync": "^3.0.2",
-    "eslint": "^8.49.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.28.1",
-    "playwright": "^1.39.0",
-    "prettier": "^3.0.3",
-    "typescript": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "playwright": "^1.49.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.7.2",
     "web": "^0.0.2"
   },
   "dependencies": {
-    "framework7": "^8.3.1",
-    "install": "^0.13.0",
-    "npm": "^10.4.0"
+    "framework7": "^8.3.4"
   }
 }

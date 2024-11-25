@@ -67,10 +67,6 @@ defmodule LayoutHelper do
       script(
         type: "module",
         src: Web.Endpoint |> Web.Router.Helpers.static_path("/lib/web/app.js")
-      ),
-      script(
-        async: true,
-        src: "http://localhost:3000/browser-sync/browser-sync-client.js?v=2.27.10"
       )
     ]
   end

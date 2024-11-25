@@ -5,7 +5,7 @@ defmodule MixProject do
     [
       app: :app,
       version: "0.1.0",
-      elixir: "~> 1.15",
+      elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -37,6 +37,7 @@ defmodule MixProject do
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_view, "2.0.2"},
       {:nitroux, "~> 0.4.4"},
       {:swoosh, "~> 1.3"},
